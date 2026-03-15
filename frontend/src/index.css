@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: 'Share Tech Mono', monospace;
+}
+
+body {
+  background-color: #0a0a0f;
+  color: #e2e8f0;
+}
+
+/* Scanlines overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0a0a0f; }
+::-webkit-scrollbar-thumb { background: rgba(0,255,255,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,255,255,0.6); }
+
+@layer utilities {
+  .text-neon-cyan {
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0,255,255,0.8);
+  }
+  .text-neon-magenta {
+    color: #ff00ff;
+    text-shadow: 0 0 10px rgba(255,0,255,0.8);
+  }
+  .text-neon-green {
+    color: #00ff41;
+    text-shadow: 0 0 10px rgba(0,255,65,0.8);
+  }
+  .border-neon-cyan {
+    border-color: #00ffff;
+    box-shadow: 0 0 10px rgba(0,255,255,0.3);
+  }
+  .card-cyber {
+    background: #0d1117;
+    border: 1px solid rgba(0,255,255,0.2);
+    box-shadow: 0 0 15px rgba(0,255,255,0.05);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .card-cyber:hover {
+    border-color: rgba(0,255,255,0.5);
+    box-shadow: 0 0 20px rgba(0,255,255,0.15);
+  }
+  .btn-cyber {
+    background: transparent;
+    border: 1px solid #00ffff;
+    color: #00ffff;
+    text-shadow: 0 0 8px rgba(0,255,255,0.5);
+    box-shadow: 0 0 10px rgba(0,255,255,0.2);
+    transition: all 0.2s;
+    padding: 0.5rem 1.25rem;
+    font-family: 'Share Tech Mono', monospace;
+    cursor: pointer;
+  }
+  .btn-cyber:hover {
+    background: rgba(0,255,255,0.1);
+    box-shadow: 0 0 20px rgba(0,255,255,0.4);
+  }
+  .btn-cyber:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .btn-cyber-magenta {
+    border-color: #ff00ff;
+    color: #ff00ff;
+    text-shadow: 0 0 8px rgba(255,0,255,0.5);
+    box-shadow: 0 0 10px rgba(255,0,255,0.2);
+  }
+  .btn-cyber-magenta:hover {
+    background: rgba(255,0,255,0.1);
+    box-shadow: 0 0 20px rgba(255,0,255,0.4);
+  }
+  .btn-cyber-green {
+    border-color: #00ff41;
+    color: #00ff41;
+    text-shadow: 0 0 8px rgba(0,255,65,0.5);
+    box-shadow: 0 0 10px rgba(0,255,65,0.2);
+  }
+  .btn-cyber-green:hover {
+    background: rgba(0,255,65,0.1);
+    box-shadow: 0 0 20px rgba(0,255,65,0.4);
+  }
+  .btn-cyber-yellow {
+    border-color: #ffff00;
+    color: #ffff00;
+    text-shadow: 0 0 8px rgba(255,255,0,0.5);
+    box-shadow: 0 0 10px rgba(255,255,0,0.2);
+  }
+  .btn-cyber-yellow:hover {
+    background: rgba(255,255,0,0.1);
+    box-shadow: 0 0 20px rgba(255,255,0,0.4);
+  }
+  .btn-cyber-red {
+    border-color: #ff0040;
+    color: #ff0040;
+    text-shadow: 0 0 8px rgba(255,0,64,0.5);
+    box-shadow: 0 0 10px rgba(255,0,64,0.2);
+  }
+  .btn-cyber-red:hover {
+    background: rgba(255,0,64,0.1);
+    box-shadow: 0 0 20px rgba(255,0,64,0.4);
+  }
+}
+
+/* Card flip utilities preserved */
+@layer utilities {
+  .card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-3d.flipped {
+    transform: rotateY(180deg);
+  }
+
+  .card-face {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .card-back {
+    transform: rotateY(180deg);
+  }
+}
+
+/* Prose overrides for chat */
+.prose-cyber code {
+  background: #161b22;
+  color: #00ff41;
+  border: 1px solid rgba(0,255,65,0.2);
+}
+.prose-cyber pre {
+  background: #0d1117;
+  border: 1px solid rgba(0,255,255,0.2);
+}
+.prose-cyber a {
+  color: #00ffff;
+}
+.prose-cyber strong {
+  color: #e2e8f0;
+}
