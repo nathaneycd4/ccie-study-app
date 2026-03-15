@@ -28,10 +28,10 @@ export default function Navbar() {
         style={{ borderBottom: '1px solid rgba(0,255,255,0.15)' }}
       >
         <div className="text-neon-cyan font-mono text-lg leading-none">
-          [CCIE.STUDY]
+          Nathan Fagan
         </div>
         <div className="text-[#64748b] text-xs mt-1.5 font-mono">
-          &gt; v1.0 ACTIVE
+          &gt; CCIE EI CANDIDATE
         </div>
       </div>
 
