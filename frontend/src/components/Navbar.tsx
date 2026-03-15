@@ -9,7 +9,7 @@ import {
 const links = [
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/quiz', label: 'Flashcards', icon: BrainCircuit },
-  { to: '/chat', label: 'Ask Claude', icon: MessageSquare },
+  { to: '/chat', label: 'Ask Mentor', icon: MessageSquare },
   { to: '/labs', label: 'Labs', icon: Server },
 ]
 

@@ -169,7 +169,7 @@ export default function Dashboard() {
           >
             <MessageSquare size={20} style={{ color: '#ff00ff' }} />
           </div>
-          <p className="font-mono font-semibold text-[#e2e8f0] text-sm">Ask Claude</p>
+          <p className="font-mono font-semibold text-[#e2e8f0] text-sm">Ask Mentor</p>
           <p className="text-[#64748b] text-xs mt-0.5 font-mono">CCIE EI mentor</p>
         </button>
 
