@@ -28,11 +28,6 @@ Personal study platform for CCIE Enterprise Infrastructure exam preparation.
 
 ## Features
 
-### Flashcard / Quiz System
-- 72 cards across 14 CCIE EI topics
-- SM-2 spaced repetition — cards scheduled based on performance
-- Quality ratings: Correct (5) / Almost (3) / Missed (1)
-
 **Topics covered:**
 
 | Topic | Cards |
@@ -52,6 +47,12 @@ Personal study platform for CCIE Enterprise Infrastructure exam preparation.
 | Wireless | 3 |
 | MPLS | 2 |
 
+### Flashcard / Quiz System
+- 72 cards across 14 CCIE EI topics
+- SM-2 spaced repetition — cards scheduled based on performance
+- Quality ratings: Correct (5) / Almost (3) / Missed (1)
+- Skip button to advance without rating
+
 ### Study Progress Dashboard
 - Current module based on Cohort 27 schedule (Feb 2026 – Jan 2027)
 - Log study sessions with topic, duration, and notes
@@ -62,13 +63,21 @@ Personal study platform for CCIE Enterprise Infrastructure exam preparation.
 - Streaming responses via Server-Sent Events
 - Detects lab creation intent — triggers CML lab directly from chat
 - Persistent chat history per session
+- Header shows current study module from Cohort 27 schedule
 
 ### CML Lab Launcher
-- Creates OSPF troubleshooting labs on Cisco Modeling Labs
+- Creates troubleshooting labs on Cisco Modeling Labs for OSPF, BGP, and EIGRP
 - Fault count slider (1–7 faults)
-- Fault types: area mismatch, timer mismatch, missing network statement, MD5 auth mismatch, passive interface, MTU mismatch, wrong wildcard mask
-- Answer key revealed after lab is created
-- Topology: 5 × IOL-XE routers (iol-xe, Ethernet0/x interfaces)
+- Topology: 5 × IOL-XE routers (R1–R5, Ethernet0/x interfaces) — same physical layout for all lab types
+- SVG topology diagram shown inline on each lab card
+- Interactive fault checklist — tick off each fault as you fix it, with progress counter
+- Answer key revealed on demand after lab is created
+
+**OSPF fault types:** area mismatch, timer mismatch, missing network statement, MD5 auth mismatch, passive interface, MTU mismatch, wrong wildcard mask
+
+**BGP fault types:** wrong remote-as, wrong neighbor IP, missing network statement, missing address-family activation, missing static route for loopback peering, missing next-hop-self, wrong AS on eBGP peer
+
+**EIGRP fault types:** wrong AS number, passive interface, K-value mismatch, wrong wildcard, missing network statement, distribute-list blocking routes, MD5 auth mismatch
 
 ---
 
@@ -79,12 +88,18 @@ ccie-study-app/
 ├── frontend/
 │   ├── src/
 │   │   ├── api/client.ts              # All API calls + SSE streaming
-│   │   ├── components/                # Shared UI components
+│   │   ├── components/
+│   │   │   ├── FlashcardViewer.tsx    # Card flip + rating buttons + skip
+│   │   │   ├── LabLauncher.tsx        # Lab creation form (topic/faults/seed)
+│   │   │   ├── LabStatusCard.tsx      # Lab card with topology + fault checklist
+│   │   │   ├── LabTopology.tsx        # SVG topology diagram (R1–R5)
+│   │   │   ├── CurrentModuleCard.tsx  # Dashboard current module
+│   │   │   └── ScheduleTimeline.tsx   # Programme schedule timeline
 │   │   ├── pages/
 │   │   │   ├── Dashboard.tsx          # Study progress + session logging
 │   │   │   ├── Quiz.tsx               # Topic selector
-│   │   │   ├── FlashcardSession.tsx   # SM-2 card review
-│   │   │   ├── Chat.tsx               # AI mentor with streaming
+│   │   │   ├── FlashcardSession.tsx   # SM-2 card review session
+│   │   │   ├── Chat.tsx               # AI mentor with streaming + module context
 │   │   │   └── Labs.tsx               # CML lab launcher
 │   │   ├── types/                     # TypeScript interfaces
 │   │   └── index.css                  # Cyberpunk global styles
@@ -96,7 +111,7 @@ ccie-study-app/
     │   ├── main.py                    # FastAPI app, CORS, lifespan startup
     │   ├── db.py                      # Async SQLAlchemy + asyncpg
     │   ├── models/models.py           # ORM models
-    │   ├── routers/
+    │   ├── api/routes/
     │   │   ├── progress.py            # Study session endpoints
     │   │   ├── quiz.py                # Deck, answer, stats endpoints
     │   │   ├── chat.py                # SSE streaming chat
@@ -105,7 +120,12 @@ ccie-study-app/
     │       ├── claude.py              # Anthropic streaming + lab intent
     │       ├── srs.py                 # SM-2 algorithm
     │       ├── schedule.py            # Cohort 27 programme schedule
-    │       └── cml.py                 # virl2-client CML integration
+    │       └── cml_service.py         # virl2-client CML integration + routing
+    ├── labs/
+    │   ├── ospf.py                    # OSPF lab generator (7 fault types)
+    │   ├── bgp.py                     # BGP lab generator (7 fault types)
+    │   └── eigrp.py                   # EIGRP lab generator (7 fault types)
+    ├── cml_client.py                  # CML connection helper
     ├── seed_quiz_data.py              # Seed 72 CCIE EI quiz cards
     ├── requirements.txt
     ├── railway.toml                   # Railway build/deploy config
