@@ -207,9 +207,16 @@ python seed_quiz_data.py
 
 ## Deployment
 
-Both services auto-deploy on push to `main` via GitHub webhooks.
-
 Repository: `github.com/nathaneycd4/ccie-study-app`
+
+### Frontend (Cloudflare Pages)
+Auto-deploys on every push to `main`. No action needed.
+
+### Backend (Railway)
+Auto-deploys via GitHub Actions (`.github/workflows/deploy-backend.yml`).
+Triggers on any push that touches `backend/**`, calls Railway API with `latestCommit: true`.
+
+GitHub secret required: `RAILWAY_TOKEN` (already set).
 
 ### Manual backend redeploy
 ```bash
