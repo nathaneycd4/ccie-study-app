@@ -3,7 +3,7 @@ uvicorn[standard]==0.30.6
 sqlalchemy[asyncio]==2.0.36
 asyncpg==0.30.0
 anthropic==0.39.0
-virl2-client==2.7.1
+virl2-client==2.7.0
 python-dotenv==1.0.1
 pydantic-settings==2.6.0
 httpx>=0.26.0,<0.27.0
