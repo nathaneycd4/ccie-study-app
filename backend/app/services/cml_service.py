@@ -56,9 +56,20 @@ def _create_lab_sync(
                 await session.commit()
 
     try:
-        if topic.lower() == "ospf":
+        t = topic.lower()
+        if t == "ospf":
             from labs.ospf import build_ospf_lab
             cml_lab_id, injected_faults, cml_url = build_ospf_lab(
+                fault_count=fault_count, seed=seed
+            )
+        elif t == "bgp":
+            from labs.bgp import build_bgp_lab
+            cml_lab_id, injected_faults, cml_url = build_bgp_lab(
+                fault_count=fault_count, seed=seed
+            )
+        elif t == "eigrp":
+            from labs.eigrp import build_eigrp_lab
+            cml_lab_id, injected_faults, cml_url = build_eigrp_lab(
                 fault_count=fault_count, seed=seed
             )
         else:

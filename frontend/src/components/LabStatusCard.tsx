@@ -12,6 +12,7 @@ import {
   EyeOff,
   Trash2,
 } from 'lucide-react'
+import LabTopology from './LabTopology'
 
 interface Props {
   lab: Lab
@@ -35,6 +36,15 @@ export default function LabStatusCard({ lab, onDelete }: Props) {
   const [answerKey, setAnswerKey] = useState<string[] | null>(null)
   const [loadingKey, setLoadingKey] = useState(false)
   const [expanded, setExpanded] = useState(false)
+  const [checked, setChecked] = useState<boolean[]>([])
+
+  const toggleChecked = (i: number) => {
+    setChecked((prev) => {
+      const next = [...prev]
+      next[i] = !next[i]
+      return next
+    })
+  }
 
   const handleReveal = async () => {
     if (answerKey) {
@@ -45,11 +55,13 @@ export default function LabStatusCard({ lab, onDelete }: Props) {
     try {
       const key = await api.labs.getAnswerKey(lab.id)
       setAnswerKey(key.fault_descriptions)
+      setChecked(new Array(key.fault_descriptions.length).fill(false))
       setAnswerRevealed(true)
     } catch {
       // use embedded fault_descriptions if available
       if (lab.fault_descriptions) {
         setAnswerKey(lab.fault_descriptions)
+        setChecked(new Array(lab.fault_descriptions.length).fill(false))
         setAnswerRevealed(true)
       }
     } finally {
@@ -122,6 +134,9 @@ export default function LabStatusCard({ lab, onDelete }: Props) {
           className="px-4 py-3 space-y-3"
           style={{ borderTop: '1px solid rgba(0,255,255,0.12)' }}
         >
+          {/* Topology diagram */}
+          <LabTopology lab={lab} />
+
           {/* CML URL */}
           {lab.cml_url && lab.status === 'ready' && (
             <a
@@ -156,22 +171,54 @@ export default function LabStatusCard({ lab, onDelete }: Props) {
 
               {answerRevealed && answerKey && (
                 <div className="mt-2 space-y-1.5">
+                  {/* Progress */}
+                  <div className="flex items-center justify-between text-xs font-mono mb-2">
+                    <span style={{ color: checked.filter(Boolean).length === answerKey.length ? '#00ff41' : '#64748b' }}>
+                      {checked.filter(Boolean).length === answerKey.length
+                        ? '✓ All faults fixed!'
+                        : `${checked.filter(Boolean).length} / ${answerKey.length} fixed`}
+                    </span>
+                  </div>
                   {answerKey.map((fault, i) => (
                     <div
                       key={i}
-                      className="flex items-start gap-2 rounded-lg px-3 py-2"
+                      className="flex items-start gap-2 rounded-lg px-3 py-2 cursor-pointer transition-all"
                       style={{
-                        background: '#0a0a0f',
-                        border: '1px solid rgba(0,255,255,0.15)',
+                        background: checked[i] ? 'rgba(0,255,65,0.05)' : '#0a0a0f',
+                        border: `1px solid ${checked[i] ? 'rgba(0,255,65,0.3)' : 'rgba(0,255,255,0.15)'}`,
                       }}
+                      onClick={() => toggleChecked(i)}
                     >
-                      <span
-                        className="font-bold text-xs mt-0.5 shrink-0 font-mono"
-                        style={{ color: '#ff00ff', textShadow: '0 0 6px rgba(255,0,255,0.5)' }}
+                      <div
+                        className="w-4 h-4 rounded shrink-0 mt-0.5 flex items-center justify-center transition-all"
+                        style={{
+                          background: checked[i] ? 'rgba(0,255,65,0.2)' : 'transparent',
+                          border: `1px solid ${checked[i] ? '#00ff41' : 'rgba(100,116,139,0.5)'}`,
+                        }}
                       >
-                        F{i + 1}
-                      </span>
-                      <p className="text-sm text-[#e2e8f0] font-mono">{fault}</p>
+                        {checked[i] && (
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                            <path d="M2 5l2.5 2.5L8 3" stroke="#00ff41" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <span
+                          className="font-bold text-xs font-mono"
+                          style={{ color: checked[i] ? '#00ff41' : '#ff00ff', textShadow: checked[i] ? '0 0 6px rgba(0,255,65,0.5)' : '0 0 6px rgba(255,0,255,0.5)' }}
+                        >
+                          F{i + 1}{' '}
+                        </span>
+                        <span
+                          className="text-sm font-mono"
+                          style={{
+                            color: checked[i] ? '#64748b' : '#e2e8f0',
+                            textDecoration: checked[i] ? 'line-through' : 'none',
+                          }}
+                        >
+                          {fault}
+                        </span>
+                      </div>
                     </div>
                   ))}
                 </div>

@@ -7,9 +7,10 @@ interface Props {
   cardIndex: number
   totalCards: number
   onAnswer: (quality: 1 | 3 | 5) => void
+  onSkip: () => void
 }
 
-export default function FlashcardViewer({ card, cardIndex, totalCards, onAnswer }: Props) {
+export default function FlashcardViewer({ card, cardIndex, totalCards, onAnswer, onSkip }: Props) {
   const [flipped, setFlipped] = useState(false)
 
   const handleFlip = () => setFlipped((f) => !f)
@@ -17,6 +18,11 @@ export default function FlashcardViewer({ card, cardIndex, totalCards, onAnswer 
   const handleAnswer = (quality: 1 | 3 | 5) => {
     setFlipped(false)
     setTimeout(() => onAnswer(quality), 100)
+  }
+
+  const handleSkip = () => {
+    setFlipped(false)
+    setTimeout(() => onSkip(), 100)
   }
 
   return (
@@ -153,9 +159,20 @@ export default function FlashcardViewer({ card, cardIndex, totalCards, onAnswer 
       )}
 
       {!flipped && (
-        <p className="text-[#64748b] text-sm font-mono">
-          &gt; Click the card to reveal the answer
-        </p>
+        <div className="w-full max-w-2xl flex items-center justify-between">
+          <p className="text-[#64748b] text-sm font-mono">
+            &gt; Click the card to reveal the answer
+          </p>
+          <button
+            onClick={handleSkip}
+            className="text-xs font-mono px-3 py-1.5 rounded transition-colors"
+            style={{ color: '#64748b', border: '1px solid rgba(100,116,139,0.3)' }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = '#e2e8f0'; e.currentTarget.style.borderColor = 'rgba(226,232,240,0.3)' }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#64748b'; e.currentTarget.style.borderColor = 'rgba(100,116,139,0.3)' }}
+          >
+            Skip →
+          </button>
+        </div>
       )}
     </div>
   )

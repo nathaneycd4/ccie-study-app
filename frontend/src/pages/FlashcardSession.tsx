@@ -40,6 +40,15 @@ export default function FlashcardSession() {
     }
   }
 
+  const handleSkip = () => {
+    if (!cards) return
+    if (cardIndex + 1 >= cards.length) {
+      setSessionDone(true)
+    } else {
+      setCardIndex((i) => i + 1)
+    }
+  }
+
   const handleRestart = () => {
     setCardIndex(0)
     setResults([])
@@ -231,6 +240,7 @@ export default function FlashcardSession() {
         cardIndex={cardIndex}
         totalCards={cards.length}
         onAnswer={handleAnswer}
+        onSkip={handleSkip}
       />
     </div>
   )

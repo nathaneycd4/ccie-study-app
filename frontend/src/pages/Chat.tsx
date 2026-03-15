@@ -19,6 +19,10 @@ function getOrCreateSessionId(): string {
 export default function Chat() {
   const sessionId = getOrCreateSessionId()
   const queryClient = useQueryClient()
+  const { data: progress } = useQuery({
+    queryKey: ['progress'],
+    queryFn: () => api.progress.get(),
+  })
   const [streamingContent, setStreamingContent] = useState<string>('')
   const [isStreaming, setIsStreaming] = useState(false)
 
@@ -119,7 +123,9 @@ export default function Chat() {
             <span className="animate-blink ml-1">_</span>
           </h1>
           <p className="text-xs text-[#64748b] font-mono mt-0.5">
-            Powered by Claude • OSPF, BGP, MPLS, SD-WAN
+            {progress?.current_module
+              ? `Current module: ${progress.current_module}`
+              : 'Powered by Claude • OSPF, BGP, MPLS, SD-WAN'}
           </p>
         </div>
         <button

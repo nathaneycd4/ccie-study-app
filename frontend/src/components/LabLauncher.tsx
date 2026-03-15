@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { FlaskConical, Loader2 } from 'lucide-react'
 import type { LabCreate } from '../types'
 
-const TOPICS = ['ospf'] // expand as more labs are added
+const TOPICS = ['ospf', 'bgp', 'eigrp']
 
 interface Props {
   onLaunch: (data: LabCreate) => void
