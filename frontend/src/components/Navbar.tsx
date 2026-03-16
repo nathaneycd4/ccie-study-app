@@ -50,7 +50,7 @@ export default function Navbar() {
             Nathan Fagan
           </span>
           <span className="font-mono text-xs mt-0.5 leading-none" style={{ color: '#71717A' }}>
-            &gt; CCIE EI CANDIDATE
+            &gt; CCNP EI
           </span>
           </div>
         </div>
