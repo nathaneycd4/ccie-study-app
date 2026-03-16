@@ -70,7 +70,7 @@ export default function FlashcardSession() {
 
   if (!cards || cards.length === 0) {
     return (
-      <div className="p-6 max-w-2xl mx-auto">
+      <div className="p-4 sm:p-6 max-w-2xl mx-auto">
         <button
           onClick={() => navigate('/quiz')}
           className="flex items-center gap-2 text-sm mb-6 transition-colors font-mono"
@@ -110,7 +110,7 @@ export default function FlashcardSession() {
     const missed = answered.filter((q) => q === 1).length
 
     return (
-      <div className="p-6 max-w-2xl mx-auto">
+      <div className="p-4 sm:p-6 max-w-2xl mx-auto">
         <button
           onClick={() => navigate('/quiz')}
           className="flex items-center gap-2 text-sm mb-6 transition-colors font-mono"

@@ -33,7 +33,7 @@ export default function Quiz() {
 
   if (!stats || stats.length === 0) {
     return (
-      <div className="p-6 max-w-3xl mx-auto">
+      <div className="p-4 sm:p-6 max-w-3xl mx-auto">
         <h1
           className="text-2xl font-mono mb-2"
           style={{ color: '#1C69D4' }}
@@ -76,7 +76,7 @@ export default function Quiz() {
   const totalDue = stats.reduce((s, t) => s + t.due_today, 0)
 
   return (
-    <div className="p-6 max-w-3xl mx-auto space-y-6">
+    <div className="p-4 sm:p-6 max-w-3xl mx-auto space-y-6">
       <div>
         <h1
           className="text-2xl font-mono"

@@ -41,7 +41,7 @@ export default function Dashboard() {
   const totalDue = quizStats?.reduce((sum, t) => sum + t.due_today, 0) ?? 0
 
   return (
-    <div className="p-6 max-w-5xl mx-auto space-y-6">
+    <div className="p-4 sm:p-6 max-w-5xl mx-auto space-y-6">
       {/* Header */}
       <div>
         <h1
@@ -131,7 +131,7 @@ export default function Dashboard() {
       </div>
 
       {/* Quick actions */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <button
           onClick={() => navigate('/quiz')}
           className="card-cyber rounded-xl p-5 text-left group"

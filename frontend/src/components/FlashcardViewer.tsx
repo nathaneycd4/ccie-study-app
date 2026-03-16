@@ -38,8 +38,8 @@ export default function FlashcardViewer({ card, cardIndex, totalCards, onAnswer,
 
       {/* Card */}
       <div
-        className="w-full max-w-2xl cursor-pointer"
-        style={{ perspective: '1200px', height: '320px' }}
+        className="w-full max-w-2xl cursor-pointer h-64 sm:h-80"
+        style={{ perspective: '1200px' }}
         onClick={handleFlip}
       >
         <div className={`card-3d w-full h-full relative ${flipped ? 'flipped' : ''}`}>

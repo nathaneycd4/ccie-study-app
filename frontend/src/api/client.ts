@@ -10,6 +10,8 @@ import type {
   Lab,
   LabCreate,
   LabAnswerKey,
+  BlogPost,
+  BlogPostCreate,
 } from '../types'
 
 const BASE_URL = import.meta.env.VITE_API_URL ?? '/api'
@@ -86,5 +88,14 @@ export const api = {
     getAnswerKey: (id: number) => request<LabAnswerKey>(`/labs/${id}/answer-key`),
     delete: (id: number) =>
       request<{ deleted: boolean }>(`/labs/${id}`, { method: 'DELETE' }),
+  },
+
+  // ── Blog ───────────────────────────────────────────────────────────────────
+
+  blog: {
+    list: () => request<BlogPost[]>('/blog/'),
+    get: (id: number) => request<BlogPost>(`/blog/${id}`),
+    create: (data: BlogPostCreate) => request<BlogPost>('/blog/', { method: 'POST', body: JSON.stringify(data) }),
+    delete: (id: number) => request<{ deleted: boolean }>(`/blog/${id}`, { method: 'DELETE' }),
   },
 }

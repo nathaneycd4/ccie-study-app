@@ -158,3 +158,22 @@ class LabAnswerKey(BaseModel):
     lab_id: int
     topic: str
     fault_descriptions: List[str]
+
+
+# ── Blog ─────────────────────────────────────────────────────────────────────
+class BlogPostCreate(BaseModel):
+    title: str
+    content: str
+    excerpt: Optional[str] = None
+    tags: Optional[List[str]] = None
+    author: Optional[str] = None
+
+class BlogPostOut(BaseModel):
+    id: int
+    title: str
+    content: str
+    excerpt: Optional[str]
+    tags: Optional[List[str]]
+    author: Optional[str]
+    created_at: datetime
+    model_config = {"from_attributes": True}

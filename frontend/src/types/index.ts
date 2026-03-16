@@ -112,3 +112,22 @@ export interface LabAnswerKey {
   topic: string
   fault_descriptions: string[]
 }
+
+// ── Blog ─────────────────────────────────────────────────────────────────────
+export interface BlogPost {
+  id: number
+  title: string
+  content: string
+  excerpt: string | null
+  tags: string[] | null
+  author: string | null
+  created_at: string
+}
+
+export interface BlogPostCreate {
+  title: string
+  content: string
+  excerpt?: string
+  tags?: string[]
+  author?: string
+}

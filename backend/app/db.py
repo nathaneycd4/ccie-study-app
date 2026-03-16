@@ -37,6 +37,6 @@ async def get_db():
 
 
 async def create_tables():
-    from app.models.models import StudySession, QuizCard, CardReview, ChatMessage, Lab  # noqa: F401
+    from app.models.models import StudySession, QuizCard, CardReview, ChatMessage, Lab, BlogPost  # noqa: F401
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)

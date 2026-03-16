@@ -3,7 +3,7 @@ import Navbar from './Navbar'
 
 export default function Layout() {
   return (
-    <div className="flex h-screen bg-[#0a0a0f] overflow-hidden">
+    <div className="flex flex-col h-screen bg-[#09090b] overflow-hidden">
       <Navbar />
       <main className="flex-1 overflow-y-auto">
         <Outlet />

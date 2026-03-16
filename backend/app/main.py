@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from app.db import create_tables
-from app.api.routes import progress, quiz, chat, labs, auth
+from app.api.routes import progress, quiz, chat, labs, auth, blog
 
 
 @asynccontextmanager
@@ -41,6 +41,7 @@ app.include_router(progress.router, prefix="/progress", tags=["progress"])
 app.include_router(quiz.router, prefix="/quiz", tags=["quiz"])
 app.include_router(chat.router, prefix="/chat", tags=["chat"])
 app.include_router(labs.router, prefix="/labs", tags=["labs"])
+app.include_router(blog.router, prefix="/blog", tags=["blog"])
 
 
 @app.get("/health")
