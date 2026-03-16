@@ -277,8 +277,8 @@ def build_ospf_lab(fault_count: int = 2, seed: Optional[int] = None) -> Tuple[st
     print("Starting lab (this takes a few minutes for IOSv to boot)...")
     lab.start()
 
-    cml_host = __import__("os").environ.get("CML_HOST", "192.168.137.10")
-    cml_url = f"https://{cml_host}/#/labs/{lab.id}"
+    cml_host = __import__("os").environ.get("CML_HOST", "https://192.168.137.10").rstrip("/")
+    cml_url = f"{cml_host}/#/labs/{lab.id}"
 
     print(f"Lab ID: {lab.id}")
     print(f"Lab URL: {cml_url}")

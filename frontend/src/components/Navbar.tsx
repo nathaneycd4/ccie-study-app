@@ -1,10 +1,12 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard,
   BrainCircuit,
   MessageSquare,
   Server,
+  LogOut,
 } from 'lucide-react'
+import { isAuthenticated, logout, getStoredEmail } from '../lib/auth'
 
 const links = [
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -14,6 +16,15 @@ const links = [
 ]
 
 export default function Navbar() {
+  const navigate = useNavigate()
+  const authenticated = isAuthenticated()
+  const email = getStoredEmail()
+
+  const handleLogout = () => {
+    logout()
+    navigate('/dashboard', { replace: true })
+  }
+
   return (
     <nav
       className="w-56 flex flex-col shrink-0"
@@ -73,11 +84,28 @@ export default function Navbar() {
 
       {/* Footer */}
       <div
-        className="px-5 py-4"
+        className="px-5 py-4 flex flex-col gap-3"
         style={{ borderTop: '1px solid rgba(0,255,255,0.15)' }}
       >
-        <p className="text-neon-green text-xs font-mono">● SYSTEM ONLINE</p>
-        <p className="text-[#64748b] text-xs mt-0.5">Exam: Jan 2027</p>
+        <div>
+          <p className="text-neon-green text-xs font-mono">● SYSTEM ONLINE</p>
+          <p className="text-[#64748b] text-xs mt-0.5">Exam: Jan 2027</p>
+        </div>
+        {authenticated && (
+          <div className="flex flex-col gap-1">
+            <p className="text-[#64748b] text-xs font-mono truncate">{email}</p>
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-1.5 text-xs font-mono transition-colors w-fit"
+              style={{ color: '#64748b' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#ff0040')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = '#64748b')}
+            >
+              <LogOut size={12} />
+              logout
+            </button>
+          </div>
+        )}
       </div>
     </nav>
   )

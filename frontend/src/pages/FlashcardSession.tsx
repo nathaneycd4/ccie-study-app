@@ -10,7 +10,7 @@ export default function FlashcardSession() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const [cardIndex, setCardIndex] = useState(0)
-  const [results, setResults] = useState<{ quality: number }[]>([])
+  const [results, setResults] = useState<Record<number, number>>({})
   const [sessionDone, setSessionDone] = useState(false)
 
   const { data: cards, isLoading } = useQuery({
@@ -26,12 +26,12 @@ export default function FlashcardSession() {
     },
   })
 
-  const handleAnswer = async (quality: 1 | 3 | 5) => {
+  const handleAnswer = (quality: 1 | 3 | 5) => {
     if (!cards) return
     const card = cards[cardIndex]
 
-    setResults((r) => [...r, { quality }])
-    await answerMutation.mutateAsync({ card_id: card.id, quality })
+    setResults((r) => ({ ...r, [cardIndex]: quality }))
+    answerMutation.mutate({ card_id: card.id, quality })
 
     if (cardIndex + 1 >= cards.length) {
       setSessionDone(true)
@@ -40,18 +40,22 @@ export default function FlashcardSession() {
     }
   }
 
-  const handleSkip = () => {
+  const handleNext = () => {
     if (!cards) return
     if (cardIndex + 1 >= cards.length) {
       setSessionDone(true)
     } else {
       setCardIndex((i) => i + 1)
     }
+  }
+
+  const handlePrevious = () => {
+    setCardIndex((i) => i - 1)
   }
 
   const handleRestart = () => {
     setCardIndex(0)
-    setResults([])
+    setResults({})
     setSessionDone(false)
     queryClient.invalidateQueries({ queryKey: ['deck', topic] })
   }
@@ -100,9 +104,10 @@ export default function FlashcardSession() {
   }
 
   if (sessionDone) {
-    const correct = results.filter((r) => r.quality === 5).length
-    const almost = results.filter((r) => r.quality === 3).length
-    const missed = results.filter((r) => r.quality === 1).length
+    const answered = Object.values(results)
+    const correct = answered.filter((q) => q === 5).length
+    const almost = answered.filter((q) => q === 3).length
+    const missed = answered.filter((q) => q === 1).length
 
     return (
       <div className="p-6 max-w-2xl mx-auto">
@@ -142,7 +147,7 @@ export default function FlashcardSession() {
             [SESSION_COMPLETE]
           </h2>
           <p className="text-[#64748b] text-sm mb-6 font-mono">
-            {topic} • {results.length} cards reviewed
+            {topic} • {answered.length} cards reviewed
           </p>
 
           <div className="grid grid-cols-3 gap-4 mb-6">
@@ -236,11 +241,14 @@ export default function FlashcardSession() {
       </div>
 
       <FlashcardViewer
+        key={cardIndex}
         card={cards[cardIndex]}
         cardIndex={cardIndex}
         totalCards={cards.length}
         onAnswer={handleAnswer}
-        onSkip={handleSkip}
+        onNext={handleNext}
+        onPrevious={handlePrevious}
+        hasPrevious={cardIndex > 0}
       />
     </div>
   )

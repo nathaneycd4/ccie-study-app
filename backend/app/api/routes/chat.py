@@ -34,7 +34,7 @@ async def send_message(data: ChatMessageCreate, db: AsyncSession = Depends(get_d
     )
     history = result.scalars().all()
 
-    messages = [{"role": m.role, "content": m.content} for m in history]
+    messages = [{"role": m.role, "content": m.content} for m in history[-20:]]
 
     async def event_generator():
         full_response = []

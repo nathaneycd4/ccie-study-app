@@ -311,7 +311,7 @@ def build_bgp_lab(fault_count: int = 2, seed: Optional[int] = None) -> Tuple[str
 
     lab.start()
 
-    cml_host = __import__("os").environ.get("CML_HOST", "192.168.137.10")
-    cml_url = f"https://{cml_host}/#/labs/{lab.id}"
+    cml_host = __import__("os").environ.get("CML_HOST", "https://192.168.137.10").rstrip("/")
+    cml_url = f"{cml_host}/#/labs/{lab.id}"
 
     return lab.id, injected, cml_url

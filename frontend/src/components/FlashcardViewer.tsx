@@ -7,23 +7,15 @@ interface Props {
   cardIndex: number
   totalCards: number
   onAnswer: (quality: 1 | 3 | 5) => void
-  onSkip: () => void
+  onNext: () => void
+  onPrevious: () => void
+  hasPrevious: boolean
 }
 
-export default function FlashcardViewer({ card, cardIndex, totalCards, onAnswer, onSkip }: Props) {
+export default function FlashcardViewer({ card, cardIndex, totalCards, onAnswer, onNext, onPrevious, hasPrevious }: Props) {
   const [flipped, setFlipped] = useState(false)
 
   const handleFlip = () => setFlipped((f) => !f)
-
-  const handleAnswer = (quality: 1 | 3 | 5) => {
-    setFlipped(false)
-    setTimeout(() => onAnswer(quality), 100)
-  }
-
-  const handleSkip = () => {
-    setFlipped(false)
-    setTimeout(() => onSkip(), 100)
-  }
 
   return (
     <div className="flex flex-col items-center gap-6">
@@ -133,44 +125,69 @@ export default function FlashcardViewer({ card, cardIndex, totalCards, onAnswer,
 
       {/* Answer buttons — only show when flipped */}
       {flipped && (
-        <div className="w-full max-w-2xl grid grid-cols-3 gap-3">
-          <button
-            onClick={() => handleAnswer(1)}
-            className="btn-cyber btn-cyber-red flex flex-col items-center gap-1 py-3 px-4 rounded-xl"
-          >
-            <span className="text-lg font-bold">1</span>
-            <span className="text-xs">Missed</span>
-          </button>
-          <button
-            onClick={() => handleAnswer(3)}
-            className="btn-cyber btn-cyber-yellow flex flex-col items-center gap-1 py-3 px-4 rounded-xl"
-          >
-            <span className="text-lg font-bold">3</span>
-            <span className="text-xs">Almost</span>
-          </button>
-          <button
-            onClick={() => handleAnswer(5)}
-            className="btn-cyber btn-cyber-green flex flex-col items-center gap-1 py-3 px-4 rounded-xl"
-          >
-            <span className="text-lg font-bold">5</span>
-            <span className="text-xs">Got it</span>
-          </button>
+        <div className="w-full max-w-2xl flex flex-col gap-3">
+          <div className="grid grid-cols-3 gap-3">
+            <button
+              onClick={() => onAnswer(1)}
+              className="btn-cyber btn-cyber-red flex flex-col items-center gap-1 py-3 px-4 rounded-xl"
+            >
+              <span className="text-lg font-bold">1</span>
+              <span className="text-xs">Missed</span>
+            </button>
+            <button
+              onClick={() => onAnswer(3)}
+              className="btn-cyber btn-cyber-yellow flex flex-col items-center gap-1 py-3 px-4 rounded-xl"
+            >
+              <span className="text-lg font-bold">3</span>
+              <span className="text-xs">Almost</span>
+            </button>
+            <button
+              onClick={() => onAnswer(5)}
+              className="btn-cyber btn-cyber-green flex flex-col items-center gap-1 py-3 px-4 rounded-xl"
+            >
+              <span className="text-lg font-bold">5</span>
+              <span className="text-xs">Got it</span>
+            </button>
+          </div>
+          {hasPrevious && (
+            <button
+              onClick={onPrevious}
+              className="text-xs font-mono px-3 py-1.5 rounded transition-colors w-fit"
+              style={{ color: '#64748b', border: '1px solid rgba(100,116,139,0.3)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#e2e8f0'; e.currentTarget.style.borderColor = 'rgba(226,232,240,0.3)' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#64748b'; e.currentTarget.style.borderColor = 'rgba(100,116,139,0.3)' }}
+            >
+              ← Previous
+            </button>
+          )}
         </div>
       )}
 
       {!flipped && (
         <div className="w-full max-w-2xl flex items-center justify-between">
-          <p className="text-[#64748b] text-sm font-mono">
-            &gt; Click the card to reveal the answer
-          </p>
+          {hasPrevious ? (
+            <button
+              onClick={onPrevious}
+              className="text-xs font-mono px-3 py-1.5 rounded transition-colors"
+              style={{ color: '#64748b', border: '1px solid rgba(100,116,139,0.3)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#e2e8f0'; e.currentTarget.style.borderColor = 'rgba(226,232,240,0.3)' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#64748b'; e.currentTarget.style.borderColor = 'rgba(100,116,139,0.3)' }}
+            >
+              ← Previous
+            </button>
+          ) : (
+            <p className="text-[#64748b] text-sm font-mono">
+              &gt; Click the card to reveal the answer
+            </p>
+          )}
           <button
-            onClick={handleSkip}
+            onClick={onNext}
             className="text-xs font-mono px-3 py-1.5 rounded transition-colors"
             style={{ color: '#64748b', border: '1px solid rgba(100,116,139,0.3)' }}
             onMouseEnter={(e) => { e.currentTarget.style.color = '#e2e8f0'; e.currentTarget.style.borderColor = 'rgba(226,232,240,0.3)' }}
             onMouseLeave={(e) => { e.currentTarget.style.color = '#64748b'; e.currentTarget.style.borderColor = 'rgba(100,116,139,0.3)' }}
           >
-            Skip →
+            Next →
           </button>
         </div>
       )}
