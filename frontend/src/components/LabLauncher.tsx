@@ -28,31 +28,31 @@ export default function LabLauncher({ onLaunch, loading, defaultTopic, defaultFa
     <div
       className="rounded-xl p-6"
       style={{
-        background: '#0d1117',
-        border: '1px solid rgba(0,255,255,0.2)',
-        boxShadow: '0 0 15px rgba(0,255,255,0.05)',
+        background: '#111113',
+        border: '1px solid rgba(28,105,212,0.25)',
+        boxShadow: '0 0 15px rgba(28,105,212,0.06)',
       }}
     >
       <div className="flex items-center gap-3 mb-5">
         <div
           className="w-9 h-9 rounded-lg flex items-center justify-center"
           style={{
-            background: 'rgba(0,255,255,0.08)',
-            border: '1px solid rgba(0,255,255,0.25)',
+            background: 'rgba(28,105,212,0.08)',
+            border: '1px solid rgba(28,105,212,0.25)',
           }}
         >
-          <FlaskConical size={18} style={{ color: '#00ffff' }} />
+          <FlaskConical size={18} style={{ color: '#1C69D4' }} />
         </div>
         <div>
-          <h3 className="text-sm font-mono text-[#e2e8f0]">Launch New Lab</h3>
-          <p className="text-xs text-[#64748b] font-mono">CML topology with injected faults</p>
+          <h3 className="text-sm font-mono text-[#F4F4F5]">Launch New Lab</h3>
+          <p className="text-xs text-[#71717A] font-mono">CML topology with injected faults</p>
         </div>
       </div>
 
       <div className="space-y-4">
         {/* Topic */}
         <div>
-          <label className="text-xs font-mono text-[#64748b] block mb-1.5">
+          <label className="text-xs font-mono text-[#71717A] block mb-1.5">
             &gt; TOPIC
           </label>
           <select
@@ -60,21 +60,21 @@ export default function LabLauncher({ onLaunch, loading, defaultTopic, defaultFa
             onChange={(e) => setTopic(e.target.value)}
             className="w-full rounded px-3 py-2 text-sm font-mono outline-none transition-all"
             style={{
-              background: '#161b22',
-              border: '1px solid rgba(0,255,255,0.2)',
-              color: '#e2e8f0',
+              background: '#18181b',
+              border: '1px solid rgba(28,105,212,0.25)',
+              color: '#F4F4F5',
             }}
             onFocus={(e) => {
-              e.target.style.borderColor = 'rgba(0,255,255,0.6)'
-              e.target.style.boxShadow = '0 0 10px rgba(0,255,255,0.2)'
+              e.target.style.borderColor = 'rgba(28,105,212,0.6)'
+              e.target.style.boxShadow = '0 0 10px rgba(28,105,212,0.12)'
             }}
             onBlur={(e) => {
-              e.target.style.borderColor = 'rgba(0,255,255,0.2)'
+              e.target.style.borderColor = 'rgba(28,105,212,0.25)'
               e.target.style.boxShadow = 'none'
             }}
           >
             {TOPICS.map((t) => (
-              <option key={t} value={t} style={{ background: '#161b22', color: '#e2e8f0' }}>
+              <option key={t} value={t} style={{ background: '#18181b', color: '#F4F4F5' }}>
                 {t.toUpperCase()}
               </option>
             ))}
@@ -84,8 +84,8 @@ export default function LabLauncher({ onLaunch, loading, defaultTopic, defaultFa
         {/* Fault count */}
         <div>
           <div className="flex justify-between items-center mb-1.5">
-            <label className="text-xs font-mono text-[#64748b]">&gt; FAULT_COUNT</label>
-            <span className="font-mono font-bold text-sm" style={{ color: '#00ffff' }}>
+            <label className="text-xs font-mono text-[#71717A]">&gt; FAULT_COUNT</label>
+            <span className="font-mono font-bold text-sm" style={{ color: '#1C69D4' }}>
               [{faultCount}]
             </span>
           </div>
@@ -96,9 +96,9 @@ export default function LabLauncher({ onLaunch, loading, defaultTopic, defaultFa
             value={faultCount}
             onChange={(e) => setFaultCount(parseInt(e.target.value, 10))}
             className="w-full"
-            style={{ accentColor: '#00ffff' }}
+            style={{ accentColor: '#1C69D4' }}
           />
-          <div className="flex justify-between text-xs text-[#64748b] mt-0.5 font-mono">
+          <div className="flex justify-between text-xs text-[#71717A] mt-0.5 font-mono">
             <span>1 [easy]</span>
             <span>7 [brutal]</span>
           </div>
@@ -106,9 +106,9 @@ export default function LabLauncher({ onLaunch, loading, defaultTopic, defaultFa
 
         {/* Seed */}
         <div>
-          <label className="text-xs font-mono text-[#64748b] block mb-1.5">
+          <label className="text-xs font-mono text-[#71717A] block mb-1.5">
             &gt; SEED{' '}
-            <span className="text-[#64748b] opacity-60">(optional — reproducible faults)</span>
+            <span className="text-[#71717A] opacity-60">(optional — reproducible faults)</span>
           </label>
           <input
             type="number"
@@ -117,16 +117,16 @@ export default function LabLauncher({ onLaunch, loading, defaultTopic, defaultFa
             placeholder="Leave blank for random"
             className="w-full rounded px-3 py-2 text-sm font-mono outline-none transition-all"
             style={{
-              background: '#161b22',
-              border: '1px solid rgba(0,255,255,0.2)',
-              color: '#e2e8f0',
+              background: '#18181b',
+              border: '1px solid rgba(28,105,212,0.25)',
+              color: '#F4F4F5',
             }}
             onFocus={(e) => {
-              e.target.style.borderColor = 'rgba(0,255,255,0.6)'
-              e.target.style.boxShadow = '0 0 10px rgba(0,255,255,0.2)'
+              e.target.style.borderColor = 'rgba(28,105,212,0.6)'
+              e.target.style.boxShadow = '0 0 10px rgba(28,105,212,0.12)'
             }}
             onBlur={(e) => {
-              e.target.style.borderColor = 'rgba(0,255,255,0.2)'
+              e.target.style.borderColor = 'rgba(28,105,212,0.25)'
               e.target.style.boxShadow = 'none'
             }}
           />

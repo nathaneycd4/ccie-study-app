@@ -42,19 +42,19 @@ function MessageBubble({ message }: MessageBubbleProps) {
         style={
           isUser
             ? {
-                background: 'rgba(255,0,255,0.15)',
-                border: '1px solid rgba(255,0,255,0.4)',
+                background: 'rgba(148,163,184,0.12)',
+                border: '1px solid rgba(148,163,184,0.35)',
               }
             : {
-                background: 'rgba(0,255,255,0.08)',
-                border: '1px solid rgba(0,255,255,0.3)',
+                background: 'rgba(28,105,212,0.08)',
+                border: '1px solid rgba(28,105,212,0.3)',
               }
         }
       >
         {isUser ? (
-          <User size={15} style={{ color: '#ff00ff' }} />
+          <User size={15} style={{ color: '#94A3B8' }} />
         ) : (
-          <Bot size={15} style={{ color: '#00ffff' }} />
+          <Bot size={15} style={{ color: '#1C69D4' }} />
         )}
       </div>
 
@@ -63,7 +63,7 @@ function MessageBubble({ message }: MessageBubbleProps) {
         {/* Role label */}
         <div
           className="text-xs font-mono mb-0.5"
-          style={{ color: isUser ? '#ff00ff' : '#00ffff' }}
+          style={{ color: isUser ? '#94A3B8' : '#1C69D4' }}
         >
           {isUser ? '> USER:' : '> MENTOR.AI:'}
         </div>
@@ -72,15 +72,15 @@ function MessageBubble({ message }: MessageBubbleProps) {
           style={
             isUser
               ? {
-                  background: 'rgba(255,0,255,0.06)',
-                  border: '1px solid rgba(255,0,255,0.3)',
-                  color: '#e2e8f0',
+                  background: 'rgba(148,163,184,0.06)',
+                  border: '1px solid rgba(148,163,184,0.25)',
+                  color: '#F4F4F5',
                   borderRadius: '4px 4px 4px 0',
                 }
               : {
-                  background: '#0d1117',
-                  border: '1px solid rgba(0,255,255,0.2)',
-                  color: '#e2e8f0',
+                  background: '#111113',
+                  border: '1px solid rgba(28,105,212,0.2)',
+                  color: '#F4F4F5',
                   borderRadius: '4px 4px 4px 0',
                 }
           }
@@ -88,7 +88,7 @@ function MessageBubble({ message }: MessageBubbleProps) {
           {isUser ? (
             <p className="whitespace-pre-wrap">{displayContent}</p>
           ) : (
-            <div className="prose prose-invert prose-sm max-w-none prose-code:font-mono prose-code:bg-[#161b22] prose-code:text-[#00ff41] prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-[rgba(0,255,255,0.2)] prose-a:text-[#00ffff] prose-strong:text-[#e2e8f0]">
+            <div className="prose prose-invert prose-sm max-w-none prose-code:font-mono prose-code:bg-[#18181b] prose-code:text-[#22C55E] prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-[#111113] prose-pre:border prose-pre:border-[rgba(28,105,212,0.2)] prose-a:text-[#1C69D4] prose-strong:text-[#F4F4F5]">
               <ReactMarkdown>{displayContent}</ReactMarkdown>
             </div>
           )}
@@ -127,21 +127,21 @@ export default function ChatThread({ messages, streamingContent }: Props) {
           <div
             className="w-14 h-14 rounded flex items-center justify-center"
             style={{
-              background: 'rgba(0,255,255,0.08)',
-              border: '1px solid rgba(0,255,255,0.3)',
-              boxShadow: '0 0 20px rgba(0,255,255,0.1)',
+              background: 'rgba(28,105,212,0.08)',
+              border: '1px solid rgba(28,105,212,0.3)',
+              boxShadow: '0 0 20px rgba(28,105,212,0.08)',
             }}
           >
-            <Bot size={28} style={{ color: '#00ffff' }} />
+            <Bot size={28} style={{ color: '#1C69D4' }} />
           </div>
           <h3
             className="text-lg font-mono"
-            style={{ color: '#00ffff', textShadow: '0 0 10px rgba(0,255,255,0.5)' }}
+            style={{ color: '#1C69D4' }}
           >
             CCIE EI Mentor
             <span className="animate-blink ml-1">_</span>
           </h3>
-          <p className="text-[#64748b] max-w-sm text-sm leading-relaxed font-mono">
+          <p className="text-[#71717A] max-w-sm text-sm leading-relaxed font-mono">
             Ask me anything about OSPF, BGP, EIGRP, MPLS, SD-WAN, or any other CCIE EI topic.
             I can also spin up troubleshooting labs for you.
           </p>
@@ -156,9 +156,9 @@ export default function ChatThread({ messages, streamingContent }: Props) {
                 key={prompt}
                 className="text-xs font-mono px-3 py-1.5 rounded"
                 style={{
-                  background: '#0d1117',
-                  border: '1px solid rgba(0,255,255,0.15)',
-                  color: '#64748b',
+                  background: '#111113',
+                  border: '1px solid rgba(28,105,212,0.15)',
+                  color: '#71717A',
                 }}
               >
                 &gt; {prompt}
@@ -178,29 +178,29 @@ export default function ChatThread({ messages, streamingContent }: Props) {
           <div
             className="w-8 h-8 rounded flex items-center justify-center shrink-0 mt-1"
             style={{
-              background: 'rgba(0,255,255,0.08)',
-              border: '1px solid rgba(0,255,255,0.3)',
+              background: 'rgba(28,105,212,0.08)',
+              border: '1px solid rgba(28,105,212,0.3)',
             }}
           >
-            <Bot size={15} style={{ color: '#00ffff' }} />
+            <Bot size={15} style={{ color: '#1C69D4' }} />
           </div>
           <div>
-            <div className="text-xs font-mono mb-0.5" style={{ color: '#00ffff' }}>
+            <div className="text-xs font-mono mb-0.5" style={{ color: '#1C69D4' }}>
               &gt; MENTOR.AI:
             </div>
             <div
               className="max-w-[75%] rounded px-4 py-3 font-mono"
               style={{
-                background: '#0d1117',
-                border: '1px solid rgba(0,255,255,0.2)',
+                background: '#111113',
+                border: '1px solid rgba(28,105,212,0.2)',
               }}
             >
-              <div className="prose prose-invert prose-sm max-w-none prose-code:font-mono prose-code:bg-[#161b22] prose-code:text-[#00ff41] prose-code:px-1 prose-code:rounded prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-[rgba(0,255,255,0.2)]">
+              <div className="prose prose-invert prose-sm max-w-none prose-code:font-mono prose-code:bg-[#18181b] prose-code:text-[#22C55E] prose-code:px-1 prose-code:rounded prose-pre:bg-[#111113] prose-pre:border prose-pre:border-[rgba(28,105,212,0.2)]">
                 <ReactMarkdown>{streamingContent}</ReactMarkdown>
               </div>
               <span
                 className="inline-block w-1.5 h-4 ml-0.5 animate-blink"
-                style={{ background: '#00ffff' }}
+                style={{ background: '#1C69D4' }}
               />
             </div>
           </div>

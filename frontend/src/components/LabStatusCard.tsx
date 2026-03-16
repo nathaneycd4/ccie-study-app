@@ -20,15 +20,15 @@ interface Props {
 }
 
 const STATUS_ICON = {
-  booting: <Loader2 size={16} className="animate-spin" style={{ color: '#ffff00' }} />,
-  ready: <CheckCircle2 size={16} style={{ color: '#00ff41' }} />,
-  error: <XCircle size={16} style={{ color: '#ff0040' }} />,
+  booting: <Loader2 size={16} className="animate-spin" style={{ color: '#EAB308' }} />,
+  ready: <CheckCircle2 size={16} style={{ color: '#22C55E' }} />,
+  error: <XCircle size={16} style={{ color: '#EF4444' }} />,
 }
 
 const STATUS_COLOR = {
-  booting: '#ffff00',
-  ready: '#00ff41',
-  error: '#ff0040',
+  booting: '#EAB308',
+  ready: '#22C55E',
+  error: '#EF4444',
 }
 
 export default function LabStatusCard({ lab, onDelete }: Props) {
@@ -76,15 +76,15 @@ export default function LabStatusCard({ lab, onDelete }: Props) {
     minute: '2-digit',
   })
 
-  const statusColor = STATUS_COLOR[lab.status as keyof typeof STATUS_COLOR] ?? '#64748b'
+  const statusColor = STATUS_COLOR[lab.status as keyof typeof STATUS_COLOR] ?? '#71717A'
 
   return (
     <div
       className="rounded-xl overflow-hidden"
       style={{
-        background: '#0d1117',
-        border: '1px solid rgba(0,255,255,0.2)',
-        boxShadow: '0 0 15px rgba(0,255,255,0.04)',
+        background: '#111113',
+        border: '1px solid rgba(28,105,212,0.25)',
+        boxShadow: '0 0 15px rgba(28,105,212,0.06)',
       }}
     >
       {/* Header */}
@@ -96,32 +96,31 @@ export default function LabStatusCard({ lab, onDelete }: Props) {
               className="text-sm font-mono capitalize"
               style={{
                 color: statusColor,
-                textShadow: `0 0 8px ${statusColor}80`,
               }}
             >
               {lab.status === 'booting' ? 'BOOTING...' : lab.status.toUpperCase()}
             </span>
           </div>
-          <span style={{ color: '#64748b' }}>•</span>
-          <span className="text-sm font-mono font-semibold text-[#e2e8f0]">
+          <span style={{ color: '#71717A' }}>•</span>
+          <span className="text-sm font-mono font-semibold text-[#F4F4F5]">
             {lab.topic.toUpperCase()}
           </span>
           <span
             className="text-xs font-mono px-2 py-0.5 rounded"
             style={{
-              background: 'rgba(0,255,255,0.06)',
-              border: '1px solid rgba(0,255,255,0.15)',
-              color: '#64748b',
+              background: 'rgba(28,105,212,0.06)',
+              border: '1px solid rgba(28,105,212,0.15)',
+              color: '#71717A',
             }}
           >
             {lab.fault_count} {lab.fault_count === 1 ? 'fault' : 'faults'}
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-xs text-[#64748b] font-mono">{createdAt}</span>
+          <span className="text-xs text-[#71717A] font-mono">{createdAt}</span>
           <button
             onClick={() => setExpanded((e) => !e)}
-            className="text-[#64748b] hover:text-[#e2e8f0] transition-colors p-1"
+            className="text-[#71717A] hover:text-[#F4F4F5] transition-colors p-1"
           >
             {expanded ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
           </button>
@@ -132,7 +131,7 @@ export default function LabStatusCard({ lab, onDelete }: Props) {
       {expanded && (
         <div
           className="px-4 py-3 space-y-3"
-          style={{ borderTop: '1px solid rgba(0,255,255,0.12)' }}
+          style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}
         >
           {/* Topology diagram */}
           <LabTopology lab={lab} />
@@ -144,7 +143,7 @@ export default function LabStatusCard({ lab, onDelete }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-sm font-mono transition-colors"
-              style={{ color: '#00ffff' }}
+              style={{ color: '#1C69D4' }}
             >
               <ExternalLink size={14} />
               Open in CML: {lab.cml_url}
@@ -173,7 +172,7 @@ export default function LabStatusCard({ lab, onDelete }: Props) {
                 <div className="mt-2 space-y-1.5">
                   {/* Progress */}
                   <div className="flex items-center justify-between text-xs font-mono mb-2">
-                    <span style={{ color: checked.filter(Boolean).length === answerKey.length ? '#00ff41' : '#64748b' }}>
+                    <span style={{ color: checked.filter(Boolean).length === answerKey.length ? '#22C55E' : '#71717A' }}>
                       {checked.filter(Boolean).length === answerKey.length
                         ? '✓ All faults fixed!'
                         : `${checked.filter(Boolean).length} / ${answerKey.length} fixed`}
@@ -184,35 +183,35 @@ export default function LabStatusCard({ lab, onDelete }: Props) {
                       key={i}
                       className="flex items-start gap-2 rounded-lg px-3 py-2 cursor-pointer transition-all"
                       style={{
-                        background: checked[i] ? 'rgba(0,255,65,0.05)' : '#0a0a0f',
-                        border: `1px solid ${checked[i] ? 'rgba(0,255,65,0.3)' : 'rgba(0,255,255,0.15)'}`,
+                        background: checked[i] ? 'rgba(34,197,94,0.05)' : '#09090b',
+                        border: `1px solid ${checked[i] ? 'rgba(34,197,94,0.3)' : 'rgba(28,105,212,0.15)'}`,
                       }}
                       onClick={() => toggleChecked(i)}
                     >
                       <div
                         className="w-4 h-4 rounded shrink-0 mt-0.5 flex items-center justify-center transition-all"
                         style={{
-                          background: checked[i] ? 'rgba(0,255,65,0.2)' : 'transparent',
-                          border: `1px solid ${checked[i] ? '#00ff41' : 'rgba(100,116,139,0.5)'}`,
+                          background: checked[i] ? 'rgba(34,197,94,0.2)' : 'transparent',
+                          border: `1px solid ${checked[i] ? '#22C55E' : 'rgba(113,113,122,0.5)'}`,
                         }}
                       >
                         {checked[i] && (
                           <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                            <path d="M2 5l2.5 2.5L8 3" stroke="#00ff41" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M2 5l2.5 2.5L8 3" stroke="#22C55E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
                         )}
                       </div>
                       <div className="flex-1">
                         <span
                           className="font-bold text-xs font-mono"
-                          style={{ color: checked[i] ? '#00ff41' : '#ff00ff', textShadow: checked[i] ? '0 0 6px rgba(0,255,65,0.5)' : '0 0 6px rgba(255,0,255,0.5)' }}
+                          style={{ color: checked[i] ? '#22C55E' : '#94A3B8' }}
                         >
                           F{i + 1}{' '}
                         </span>
                         <span
                           className="text-sm font-mono"
                           style={{
-                            color: checked[i] ? '#64748b' : '#e2e8f0',
+                            color: checked[i] ? '#71717A' : '#F4F4F5',
                             textDecoration: checked[i] ? 'line-through' : 'none',
                           }}
                         >
@@ -230,9 +229,9 @@ export default function LabStatusCard({ lab, onDelete }: Props) {
           <button
             onClick={() => onDelete(lab.id)}
             className="flex items-center gap-1.5 text-xs font-mono transition-colors"
-            style={{ color: 'rgba(255,0,64,0.6)' }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = '#ff0040')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,0,64,0.6)')}
+            style={{ color: 'rgba(239,68,68,0.6)' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#EF4444')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(239,68,68,0.6)')}
           >
             <Trash2 size={13} />
             Delete lab

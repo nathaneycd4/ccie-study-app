@@ -29,19 +29,19 @@ export default function Navbar() {
     <nav
       className="w-56 flex flex-col shrink-0"
       style={{
-        background: '#0a0a0f',
-        borderRight: '1px solid rgba(0,255,255,0.15)',
+        background: '#09090b',
+        borderRight: '1px solid rgba(255,255,255,0.07)',
       }}
     >
       {/* Logo */}
       <div
         className="px-5 py-5"
-        style={{ borderBottom: '1px solid rgba(0,255,255,0.15)' }}
+        style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}
       >
-        <div className="text-neon-cyan font-mono text-lg leading-none">
+        <div className="text-bmw-blue font-mono text-lg leading-none">
           Nathan Fagan
         </div>
-        <div className="text-[#64748b] text-xs mt-1.5 font-mono">
+        <div className="text-[#71717A] text-xs mt-1.5 font-mono">
           &gt; CCIE EI CANDIDATE
         </div>
       </div>
@@ -54,14 +54,14 @@ export default function Navbar() {
             to={to}
             className={({ isActive }) =>
               isActive
-                ? 'flex items-center gap-3 px-3 py-2.5 text-sm transition-all text-neon-cyan'
-                : 'flex items-center gap-3 px-3 py-2.5 text-sm transition-all text-[#64748b] hover:text-[#e2e8f0]'
+                ? 'flex items-center gap-3 px-3 py-2.5 text-sm transition-all text-bmw-blue'
+                : 'flex items-center gap-3 px-3 py-2.5 text-sm transition-all text-[#71717A] hover:text-[#F4F4F5]'
             }
             style={({ isActive }) =>
               isActive
                 ? {
-                    borderLeft: '2px solid #00ffff',
-                    background: 'rgba(0,255,255,0.05)',
+                    borderLeft: '2px solid #1C69D4',
+                    background: 'rgba(28,105,212,0.08)',
                     paddingLeft: '10px',
                   }
                 : {
@@ -71,7 +71,7 @@ export default function Navbar() {
           >
             {({ isActive }) => (
               <>
-                <span className={isActive ? 'text-neon-cyan' : 'text-[#64748b]'}>
+                <span className={isActive ? 'text-bmw-blue' : 'text-[#71717A]'}>
                   &gt;
                 </span>
                 <Icon size={15} />
@@ -85,21 +85,21 @@ export default function Navbar() {
       {/* Footer */}
       <div
         className="px-5 py-4 flex flex-col gap-3"
-        style={{ borderTop: '1px solid rgba(0,255,255,0.15)' }}
+        style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}
       >
         <div>
-          <p className="text-neon-green text-xs font-mono">● SYSTEM ONLINE</p>
-          <p className="text-[#64748b] text-xs mt-0.5">Exam: Jan 2027</p>
+          <p className="text-bmw-green text-xs font-mono">● SYSTEM ONLINE</p>
+          <p className="text-[#71717A] text-xs mt-0.5">Exam: Jan 2027</p>
         </div>
         {authenticated && (
           <div className="flex flex-col gap-1">
-            <p className="text-[#64748b] text-xs font-mono truncate">{email}</p>
+            <p className="text-[#71717A] text-xs font-mono truncate">{email}</p>
             <button
               onClick={handleLogout}
               className="flex items-center gap-1.5 text-xs font-mono transition-colors w-fit"
-              style={{ color: '#64748b' }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#ff0040')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = '#64748b')}
+              style={{ color: '#71717A' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#EF4444')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = '#71717A')}
             >
               <LogOut size={12} />
               logout

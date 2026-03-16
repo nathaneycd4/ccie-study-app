@@ -59,11 +59,11 @@ export default function Labs() {
       <div>
         <h1
           className="text-2xl font-mono"
-          style={{ color: '#00ffff', textShadow: '0 0 12px rgba(0,255,255,0.5)' }}
+          style={{ color: '#1C69D4' }}
         >
           // LABS
         </h1>
-        <p className="text-[#64748b] text-sm mt-0.5 font-mono">
+        <p className="text-[#71717A] text-sm mt-0.5 font-mono">
           &gt; CML topology builder with injected faults
         </p>
       </div>
@@ -84,12 +84,12 @@ export default function Labs() {
           <div className="flex items-center justify-between">
             <h3
               className="text-sm font-mono"
-              style={{ color: '#00ffff' }}
+              style={{ color: '#1C69D4' }}
             >
               // YOUR_LABS
             </h3>
             {isLoading && (
-              <Loader2 size={14} className="animate-spin" style={{ color: '#00ffff' }} />
+              <Loader2 size={14} className="animate-spin" style={{ color: '#1C69D4' }} />
             )}
           </div>
 
@@ -97,17 +97,17 @@ export default function Labs() {
             <div
               className="rounded-xl p-8 text-center"
               style={{
-                background: '#0d1117',
-                border: '1px solid rgba(0,255,255,0.2)',
+                background: '#111113',
+                border: '1px solid rgba(28,105,212,0.25)',
               }}
             >
               <FlaskConical
                 size={36}
                 className="mx-auto mb-3"
-                style={{ color: 'rgba(0,255,255,0.2)' }}
+                style={{ color: 'rgba(28,105,212,0.3)' }}
               />
-              <p className="text-[#64748b] font-mono font-medium text-sm">No labs yet</p>
-              <p className="text-[#64748b] opacity-60 text-xs mt-1 font-mono">
+              <p className="text-[#71717A] font-mono font-medium text-sm">No labs yet</p>
+              <p className="text-[#71717A] opacity-60 text-xs mt-1 font-mono">
                 Launch a lab to start troubleshooting
               </p>
             </div>

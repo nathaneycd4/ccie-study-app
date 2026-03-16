@@ -8,24 +8,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        cyber: {
-          bg: '#0a0a0f',
-          surface: '#0d1117',
-          surface2: '#161b22',
-          cyan: '#00ffff',
-          magenta: '#ff00ff',
-          green: '#00ff41',
-          yellow: '#ffff00',
-          red: '#ff0040',
+        bmw: {
+          bg: '#09090b',
+          surface: '#111113',
+          surface2: '#18181b',
+          blue: '#1C69D4',
+          silver: '#94A3B8',
+          green: '#22C55E',
+          gold: '#EAB308',
+          red: '#EF4444',
         }
       },
       fontFamily: {
-        mono: ['"Share Tech Mono"', 'monospace'],
+        mono: ['"IBM Plex Mono"', 'monospace'],
       },
       boxShadow: {
-        'neon-cyan': '0 0 10px rgba(0,255,255,0.5), 0 0 20px rgba(0,255,255,0.3)',
-        'neon-magenta': '0 0 10px rgba(255,0,255,0.5), 0 0 20px rgba(255,0,255,0.3)',
-        'neon-green': '0 0 10px rgba(0,255,65,0.5), 0 0 20px rgba(0,255,65,0.3)',
+        'bmw-blue': '0 0 10px rgba(28,105,212,0.12)',
+        'bmw-green': '0 0 10px rgba(34,197,94,0.12)',
+        'bmw-silver': '0 0 10px rgba(148,163,184,0.12)',
       },
       animation: {
         'spin-slow': 'spin 3s linear infinite',

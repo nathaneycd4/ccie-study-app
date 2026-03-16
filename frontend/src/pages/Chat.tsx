@@ -110,19 +110,19 @@ export default function Chat() {
       <div
         className="px-6 py-4 flex items-center justify-between"
         style={{
-          background: '#0a0a0f',
-          borderBottom: '1px solid rgba(0,255,255,0.15)',
+          background: '#09090b',
+          borderBottom: '1px solid rgba(255,255,255,0.07)',
         }}
       >
         <div>
           <h1
             className="text-base font-mono"
-            style={{ color: '#00ffff', textShadow: '0 0 10px rgba(0,255,255,0.5)' }}
+            style={{ color: '#1C69D4' }}
           >
             // CCIE_EI_MENTOR
             <span className="animate-blink ml-1">_</span>
           </h1>
-          <p className="text-xs text-[#64748b] font-mono mt-0.5">
+          <p className="text-xs text-[#71717A] font-mono mt-0.5">
             {progress?.current_module
               ? `Current module: ${progress.current_module}`
               : 'Powered by Claude • OSPF, BGP, MPLS, SD-WAN'}
@@ -130,15 +130,15 @@ export default function Chat() {
         </div>
         <button
           onClick={handleClear}
-          className="flex items-center gap-1.5 text-xs text-[#64748b] font-mono px-3 py-1.5 rounded transition-colors"
-          style={{ border: '1px solid rgba(255,0,64,0.2)' }}
+          className="flex items-center gap-1.5 text-xs text-[#71717A] font-mono px-3 py-1.5 rounded transition-colors"
+          style={{ border: '1px solid rgba(239,68,68,0.2)' }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.color = '#ff0040'
-            e.currentTarget.style.borderColor = 'rgba(255,0,64,0.5)'
+            e.currentTarget.style.color = '#EF4444'
+            e.currentTarget.style.borderColor = 'rgba(239,68,68,0.5)'
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.color = '#64748b'
-            e.currentTarget.style.borderColor = 'rgba(255,0,64,0.2)'
+            e.currentTarget.style.color = '#71717A'
+            e.currentTarget.style.borderColor = 'rgba(239,68,68,0.2)'
           }}
         >
           <Trash2 size={13} />

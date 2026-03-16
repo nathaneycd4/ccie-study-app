@@ -21,17 +21,16 @@ export default function FlashcardViewer({ card, cardIndex, totalCards, onAnswer,
     <div className="flex flex-col items-center gap-6">
       {/* Progress */}
       <div className="w-full max-w-2xl">
-        <div className="flex justify-between text-sm font-mono mb-2" style={{ color: '#64748b' }}>
+        <div className="flex justify-between text-sm font-mono mb-2" style={{ color: '#71717A' }}>
           <span>Card {cardIndex + 1} of {totalCards}</span>
-          <span style={{ color: '#00ffff' }}>{card.topic}</span>
+          <span style={{ color: '#1C69D4' }}>{card.topic}</span>
         </div>
-        <div className="h-1.5 rounded-full overflow-hidden" style={{ background: '#161b22' }}>
+        <div className="h-1.5 rounded-full overflow-hidden" style={{ background: '#18181b' }}>
           <div
             className="h-full rounded-full transition-all duration-500"
             style={{
               width: `${((cardIndex) / totalCards) * 100}%`,
-              background: 'linear-gradient(90deg, #00ffff, #ff00ff)',
-              boxShadow: '0 0 8px rgba(0,255,255,0.5)',
+              background: 'linear-gradient(90deg, #1C69D4, #4A90D9)',
             }}
           />
         </div>
@@ -48,30 +47,30 @@ export default function FlashcardViewer({ card, cardIndex, totalCards, onAnswer,
           <div
             className="card-face absolute inset-0 rounded-2xl p-8 flex flex-col justify-between"
             style={{
-              background: '#0d1117',
-              border: '1px solid rgba(0,255,255,0.25)',
-              boxShadow: '0 0 20px rgba(0,255,255,0.06)',
+              background: '#111113',
+              border: '1px solid rgba(28,105,212,0.25)',
+              boxShadow: '0 0 20px rgba(28,105,212,0.06)',
             }}
           >
             <div className="flex items-start justify-between">
               <span
                 className="text-xs font-mono uppercase tracking-wider px-2 py-1 rounded"
                 style={{
-                  background: 'rgba(0,255,255,0.08)',
-                  border: '1px solid rgba(0,255,255,0.2)',
-                  color: '#00ffff',
+                  background: 'rgba(28,105,212,0.08)',
+                  border: '1px solid rgba(28,105,212,0.2)',
+                  color: '#1C69D4',
                 }}
               >
                 // QUESTION
               </span>
-              <div className="text-xs text-[#64748b] flex items-center gap-1 font-mono">
+              <div className="text-xs text-[#71717A] flex items-center gap-1 font-mono">
                 <RotateCcw size={12} />
                 tap to reveal
               </div>
             </div>
             <p
               className="text-xl font-mono leading-relaxed text-center px-4"
-              style={{ color: '#00ffff', textShadow: '0 0 10px rgba(0,255,255,0.4)' }}
+              style={{ color: '#1C69D4' }}
             >
               {card.question}
             </p>
@@ -81,9 +80,9 @@ export default function FlashcardViewer({ card, cardIndex, totalCards, onAnswer,
                   key={t}
                   className="text-xs font-mono px-2 py-0.5 rounded"
                   style={{
-                    background: 'rgba(0,255,255,0.06)',
-                    border: '1px solid rgba(0,255,255,0.15)',
-                    color: '#64748b',
+                    background: 'rgba(28,105,212,0.06)',
+                    border: '1px solid rgba(28,105,212,0.15)',
+                    color: '#71717A',
                   }}
                 >
                   [{t}]
@@ -96,17 +95,17 @@ export default function FlashcardViewer({ card, cardIndex, totalCards, onAnswer,
           <div
             className="card-face card-back absolute inset-0 rounded-2xl p-8 flex flex-col gap-4"
             style={{
-              background: '#0d1117',
-              border: '1px solid rgba(0,255,65,0.35)',
-              boxShadow: '0 0 20px rgba(0,255,65,0.08)',
+              background: '#111113',
+              border: '1px solid rgba(34,197,94,0.35)',
+              boxShadow: '0 0 20px rgba(34,197,94,0.08)',
             }}
           >
             <span
               className="text-xs font-mono uppercase tracking-wider px-2 py-1 rounded w-fit"
               style={{
-                background: 'rgba(0,255,65,0.08)',
-                border: '1px solid rgba(0,255,65,0.25)',
-                color: '#00ff41',
+                background: 'rgba(34,197,94,0.08)',
+                border: '1px solid rgba(34,197,94,0.25)',
+                color: '#22C55E',
               }}
             >
               // ANSWER
@@ -114,7 +113,7 @@ export default function FlashcardViewer({ card, cardIndex, totalCards, onAnswer,
             <div className="flex-1 overflow-y-auto">
               <pre
                 className="font-mono text-sm whitespace-pre-wrap leading-relaxed"
-                style={{ color: '#00ff41', textShadow: '0 0 8px rgba(0,255,65,0.3)' }}
+                style={{ color: '#22C55E' }}
               >
                 {card.answer}
               </pre>
@@ -153,9 +152,9 @@ export default function FlashcardViewer({ card, cardIndex, totalCards, onAnswer,
             <button
               onClick={onPrevious}
               className="text-xs font-mono px-3 py-1.5 rounded transition-colors w-fit"
-              style={{ color: '#64748b', border: '1px solid rgba(100,116,139,0.3)' }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#e2e8f0'; e.currentTarget.style.borderColor = 'rgba(226,232,240,0.3)' }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = '#64748b'; e.currentTarget.style.borderColor = 'rgba(100,116,139,0.3)' }}
+              style={{ color: '#71717A', border: '1px solid rgba(113,113,122,0.3)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#F4F4F5'; e.currentTarget.style.borderColor = 'rgba(244,244,245,0.3)' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#71717A'; e.currentTarget.style.borderColor = 'rgba(113,113,122,0.3)' }}
             >
               ← Previous
             </button>
@@ -169,23 +168,23 @@ export default function FlashcardViewer({ card, cardIndex, totalCards, onAnswer,
             <button
               onClick={onPrevious}
               className="text-xs font-mono px-3 py-1.5 rounded transition-colors"
-              style={{ color: '#64748b', border: '1px solid rgba(100,116,139,0.3)' }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#e2e8f0'; e.currentTarget.style.borderColor = 'rgba(226,232,240,0.3)' }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = '#64748b'; e.currentTarget.style.borderColor = 'rgba(100,116,139,0.3)' }}
+              style={{ color: '#71717A', border: '1px solid rgba(113,113,122,0.3)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#F4F4F5'; e.currentTarget.style.borderColor = 'rgba(244,244,245,0.3)' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#71717A'; e.currentTarget.style.borderColor = 'rgba(113,113,122,0.3)' }}
             >
               ← Previous
             </button>
           ) : (
-            <p className="text-[#64748b] text-sm font-mono">
+            <p className="text-[#71717A] text-sm font-mono">
               &gt; Click the card to reveal the answer
             </p>
           )}
           <button
             onClick={onNext}
             className="text-xs font-mono px-3 py-1.5 rounded transition-colors"
-            style={{ color: '#64748b', border: '1px solid rgba(100,116,139,0.3)' }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = '#e2e8f0'; e.currentTarget.style.borderColor = 'rgba(226,232,240,0.3)' }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#64748b'; e.currentTarget.style.borderColor = 'rgba(100,116,139,0.3)' }}
+            style={{ color: '#71717A', border: '1px solid rgba(113,113,122,0.3)' }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = '#F4F4F5'; e.currentTarget.style.borderColor = 'rgba(244,244,245,0.3)' }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#71717A'; e.currentTarget.style.borderColor = 'rgba(113,113,122,0.3)' }}
           >
             Next →
           </button>

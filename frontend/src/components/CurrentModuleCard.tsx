@@ -12,19 +12,19 @@ export default function CurrentModuleCard({ module }: Props) {
     <div
       className="rounded-xl p-6"
       style={{
-        background: 'linear-gradient(135deg, rgba(0,255,255,0.08) 0%, rgba(0,255,255,0.03) 100%)',
-        border: '1px solid rgba(0,255,255,0.3)',
-        boxShadow: '0 0 20px rgba(0,255,255,0.08)',
+        background: 'linear-gradient(135deg, rgba(28,105,212,0.08) 0%, rgba(28,105,212,0.03) 100%)',
+        border: '1px solid rgba(28,105,212,0.3)',
+        boxShadow: '0 0 20px rgba(28,105,212,0.08)',
       }}
     >
       <div className="flex items-start justify-between mb-4">
         <div>
-          <p className="text-xs font-mono text-[#64748b] uppercase tracking-wider mb-1">
+          <p className="text-xs font-mono text-[#71717A] uppercase tracking-wider mb-1">
             // CURRENT_MODULE
           </p>
           <h2
             className="text-2xl font-mono"
-            style={{ color: '#00ffff', textShadow: '0 0 15px rgba(0,255,255,0.6)' }}
+            style={{ color: '#1C69D4' }}
           >
             {module.name}
           </h2>
@@ -32,9 +32,9 @@ export default function CurrentModuleCard({ module }: Props) {
         <div
           className="rounded px-3 py-1.5 font-mono text-sm"
           style={{
-            background: 'rgba(0,255,255,0.08)',
-            border: '1px solid rgba(0,255,255,0.3)',
-            color: '#00ffff',
+            background: 'rgba(28,105,212,0.08)',
+            border: '1px solid rgba(28,105,212,0.3)',
+            color: '#1C69D4',
           }}
         >
           [WK {module.week_number}]
@@ -43,20 +43,19 @@ export default function CurrentModuleCard({ module }: Props) {
 
       {/* Progress bar */}
       <div className="mb-4">
-        <div className="flex justify-between text-xs text-[#64748b] font-mono mb-1.5">
+        <div className="flex justify-between text-xs text-[#71717A] font-mono mb-1.5">
           <span>Day {module.day_number} of {module.total_days}</span>
-          <span style={{ color: '#00ffff' }}>{progressPct}%</span>
+          <span style={{ color: '#1C69D4' }}>{progressPct}%</span>
         </div>
         <div
           className="h-2 rounded-full overflow-hidden"
-          style={{ background: '#161b22' }}
+          style={{ background: '#18181b' }}
         >
           <div
             className="h-full rounded-full transition-all duration-700"
             style={{
               width: `${progressPct}%`,
-              background: 'linear-gradient(90deg, #00ffff, #ff00ff)',
-              boxShadow: '0 0 8px rgba(0,255,255,0.6)',
+              background: 'linear-gradient(90deg, #1C69D4, #4A90D9)',
             }}
           />
         </div>
@@ -66,37 +65,37 @@ export default function CurrentModuleCard({ module }: Props) {
       <div className="grid grid-cols-3 gap-3">
         <div
           className="rounded-lg p-3"
-          style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(0,255,255,0.1)' }}
+          style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(28,105,212,0.12)' }}
         >
-          <div className="flex items-center gap-1.5 text-[#64748b] text-xs mb-1 font-mono">
+          <div className="flex items-center gap-1.5 text-[#71717A] text-xs mb-1 font-mono">
             <Clock size={12} />
             <span>Remaining</span>
           </div>
-          <p className="text-[#e2e8f0] font-mono font-semibold">
+          <p className="text-[#F4F4F5] font-mono font-semibold">
             [{module.days_remaining}d]
           </p>
         </div>
         <div
           className="rounded-lg p-3"
-          style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(0,255,255,0.1)' }}
+          style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(28,105,212,0.12)' }}
         >
-          <div className="flex items-center gap-1.5 text-[#64748b] text-xs mb-1 font-mono">
+          <div className="flex items-center gap-1.5 text-[#71717A] text-xs mb-1 font-mono">
             <Calendar size={12} />
             <span>Ends</span>
           </div>
-          <p className="text-[#e2e8f0] font-mono font-semibold text-sm">
+          <p className="text-[#F4F4F5] font-mono font-semibold text-sm">
             {new Date(module.end_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
           </p>
         </div>
         <div
           className="rounded-lg p-3"
-          style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(0,255,255,0.1)' }}
+          style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(28,105,212,0.12)' }}
         >
-          <div className="flex items-center gap-1.5 text-[#64748b] text-xs mb-1 font-mono">
+          <div className="flex items-center gap-1.5 text-[#71717A] text-xs mb-1 font-mono">
             <TrendingUp size={12} />
             <span>Progress</span>
           </div>
-          <p className="font-mono font-semibold" style={{ color: '#00ffff' }}>
+          <p className="font-mono font-semibold" style={{ color: '#1C69D4' }}>
             {progressPct}%
           </p>
         </div>

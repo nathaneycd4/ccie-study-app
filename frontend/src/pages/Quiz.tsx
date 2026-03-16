@@ -4,15 +4,15 @@ import { api } from '../api/client'
 import { BrainCircuit, ChevronRight, Loader2, TrendingUp } from 'lucide-react'
 
 const TOPIC_COLORS: Record<string, { border: string; glow: string; text: string }> = {
-  OSPF: { border: 'rgba(0,255,255,0.35)', glow: 'rgba(0,255,255,0.08)', text: '#00ffff' },
-  BGP: { border: 'rgba(255,0,255,0.35)', glow: 'rgba(255,0,255,0.08)', text: '#ff00ff' },
-  EIGRP: { border: 'rgba(255,255,0,0.35)', glow: 'rgba(255,255,0,0.08)', text: '#ffff00' },
+  OSPF: { border: 'rgba(28,105,212,0.35)', glow: 'rgba(28,105,212,0.08)', text: '#1C69D4' },
+  BGP: { border: 'rgba(74,144,217,0.35)', glow: 'rgba(74,144,217,0.08)', text: '#4A90D9' },
+  EIGRP: { border: 'rgba(14,79,168,0.35)', glow: 'rgba(14,79,168,0.08)', text: '#0E4FA8' },
 }
 
 const DEFAULT_TOPIC_STYLE = {
-  border: 'rgba(0,255,255,0.2)',
-  glow: 'rgba(0,255,255,0.04)',
-  text: '#64748b',
+  border: 'rgba(28,105,212,0.2)',
+  glow: 'rgba(28,105,212,0.04)',
+  text: '#71717A',
 }
 
 export default function Quiz() {
@@ -26,7 +26,7 @@ export default function Quiz() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-full">
-        <Loader2 size={32} className="animate-spin" style={{ color: '#00ffff' }} />
+        <Loader2 size={32} className="animate-spin" style={{ color: '#1C69D4' }} />
       </div>
     )
   }
@@ -36,31 +36,31 @@ export default function Quiz() {
       <div className="p-6 max-w-3xl mx-auto">
         <h1
           className="text-2xl font-mono mb-2"
-          style={{ color: '#00ffff', textShadow: '0 0 12px rgba(0,255,255,0.5)' }}
+          style={{ color: '#1C69D4' }}
         >
           // FLASHCARDS
         </h1>
         <div
           className="rounded-xl p-8 text-center"
           style={{
-            background: '#0d1117',
-            border: '1px solid rgba(0,255,255,0.2)',
+            background: '#111113',
+            border: '1px solid rgba(28,105,212,0.25)',
           }}
         >
           <BrainCircuit
             size={40}
             className="mx-auto mb-3"
-            style={{ color: 'rgba(0,255,255,0.2)' }}
+            style={{ color: 'rgba(28,105,212,0.3)' }}
           />
-          <p className="text-[#64748b] font-mono font-medium">No cards yet</p>
-          <p className="text-[#64748b] opacity-60 text-sm mt-1 font-mono">
+          <p className="text-[#71717A] font-mono font-medium">No cards yet</p>
+          <p className="text-[#71717A] opacity-60 text-sm mt-1 font-mono">
             Run{' '}
             <code
               className="font-mono px-1.5 py-0.5 rounded"
               style={{
-                background: '#161b22',
-                border: '1px solid rgba(0,255,255,0.2)',
-                color: '#00ff41',
+                background: '#18181b',
+                border: '1px solid rgba(28,105,212,0.2)',
+                color: '#22C55E',
               }}
             >
               python seed_quiz_data.py
@@ -80,11 +80,11 @@ export default function Quiz() {
       <div>
         <h1
           className="text-2xl font-mono"
-          style={{ color: '#00ffff', textShadow: '0 0 12px rgba(0,255,255,0.5)' }}
+          style={{ color: '#1C69D4' }}
         >
           // FLASHCARDS
         </h1>
-        <p className="text-[#64748b] text-sm mt-0.5 font-mono">
+        <p className="text-[#71717A] text-sm mt-0.5 font-mono">
           &gt; {totalCards} cards • {totalDue} due today
         </p>
       </div>
@@ -94,14 +94,14 @@ export default function Quiz() {
         <div
           className="rounded-xl p-4"
           style={{
-            background: '#0d1117',
-            border: '1px solid rgba(0,255,255,0.2)',
+            background: '#111113',
+            border: '1px solid rgba(28,105,212,0.25)',
           }}
         >
-          <p className="text-xs text-[#64748b] mb-1 font-mono">Total Cards</p>
+          <p className="text-xs text-[#71717A] mb-1 font-mono">Total Cards</p>
           <p
             className="text-2xl font-mono font-bold"
-            style={{ color: '#e2e8f0' }}
+            style={{ color: '#F4F4F5' }}
           >
             {totalCards}
           </p>
@@ -109,18 +109,15 @@ export default function Quiz() {
         <div
           className="rounded-xl p-4"
           style={{
-            background: '#0d1117',
-            border: `1px solid ${totalDue > 0 ? 'rgba(255,255,0,0.3)' : 'rgba(0,255,65,0.3)'}`,
+            background: '#111113',
+            border: `1px solid ${totalDue > 0 ? 'rgba(234,179,8,0.3)' : 'rgba(34,197,94,0.3)'}`,
           }}
         >
-          <p className="text-xs text-[#64748b] mb-1 font-mono">Due Today</p>
+          <p className="text-xs text-[#71717A] mb-1 font-mono">Due Today</p>
           <p
             className="text-2xl font-mono font-bold"
             style={{
-              color: totalDue > 0 ? '#ffff00' : '#00ff41',
-              textShadow: totalDue > 0
-                ? '0 0 8px rgba(255,255,0,0.5)'
-                : '0 0 8px rgba(0,255,65,0.5)',
+              color: totalDue > 0 ? '#EAB308' : '#22C55E',
             }}
           >
             {totalDue}
@@ -129,14 +126,14 @@ export default function Quiz() {
         <div
           className="rounded-xl p-4"
           style={{
-            background: '#0d1117',
-            border: '1px solid rgba(0,255,255,0.2)',
+            background: '#111113',
+            border: '1px solid rgba(28,105,212,0.25)',
           }}
         >
-          <p className="text-xs text-[#64748b] mb-1 font-mono">Topics</p>
+          <p className="text-xs text-[#71717A] mb-1 font-mono">Topics</p>
           <p
             className="text-2xl font-mono font-bold"
-            style={{ color: '#e2e8f0' }}
+            style={{ color: '#F4F4F5' }}
           >
             {stats.length}
           </p>
@@ -169,11 +166,11 @@ export default function Quiz() {
                   <div>
                     <h3
                       className="text-lg font-mono font-bold"
-                      style={{ color: style.text, textShadow: `0 0 8px ${style.text}80` }}
+                      style={{ color: style.text }}
                     >
                       {stat.topic}
                     </h3>
-                    <p className="text-[#64748b] text-sm">{stat.total_cards} cards</p>
+                    <p className="text-[#71717A] text-sm">{stat.total_cards} cards</p>
                   </div>
                 </div>
 
@@ -183,26 +180,26 @@ export default function Quiz() {
                     {stat.due_today > 0 ? (
                       <p
                         className="font-mono font-semibold"
-                        style={{ color: '#ffff00' }}
+                        style={{ color: '#EAB308' }}
                       >
                         {stat.due_today} due
                       </p>
                     ) : (
                       <p
                         className="font-mono font-semibold"
-                        style={{ color: '#00ff41' }}
+                        style={{ color: '#22C55E' }}
                       >
                         All caught up
                       </p>
                     )}
-                    <div className="flex items-center gap-1 text-xs text-[#64748b] mt-0.5 justify-end">
+                    <div className="flex items-center gap-1 text-xs text-[#71717A] mt-0.5 justify-end">
                       <TrendingUp size={11} />
                       <span>
                         EF {stat.avg_ease.toFixed(2)} • {stat.avg_interval.toFixed(0)}d avg
                       </span>
                     </div>
                   </div>
-                  <ChevronRight size={18} style={{ color: '#64748b' }} />
+                  <ChevronRight size={18} style={{ color: '#71717A' }} />
                 </div>
               </div>
             </button>

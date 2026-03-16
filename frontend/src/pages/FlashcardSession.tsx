@@ -63,7 +63,7 @@ export default function FlashcardSession() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-full">
-        <Loader2 size={32} className="animate-spin" style={{ color: '#00ffff' }} />
+        <Loader2 size={32} className="animate-spin" style={{ color: '#1C69D4' }} />
       </div>
     )
   }
@@ -74,9 +74,9 @@ export default function FlashcardSession() {
         <button
           onClick={() => navigate('/quiz')}
           className="flex items-center gap-2 text-sm mb-6 transition-colors font-mono"
-          style={{ color: '#64748b' }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = '#e2e8f0')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = '#64748b')}
+          style={{ color: '#71717A' }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = '#F4F4F5')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = '#71717A')}
         >
           <ArrowLeft size={15} />
           &lt; Back to topics
@@ -84,18 +84,18 @@ export default function FlashcardSession() {
         <div
           className="rounded-xl p-8 text-center"
           style={{
-            background: '#0d1117',
-            border: '1px solid rgba(0,255,255,0.2)',
+            background: '#111113',
+            border: '1px solid rgba(28,105,212,0.25)',
           }}
         >
-          <Trophy size={40} className="mx-auto mb-3" style={{ color: '#00ff41' }} />
+          <Trophy size={40} className="mx-auto mb-3" style={{ color: '#22C55E' }} />
           <p
             className="font-mono font-semibold text-lg"
-            style={{ color: '#00ff41', textShadow: '0 0 10px rgba(0,255,65,0.5)' }}
+            style={{ color: '#22C55E' }}
           >
             [ALL CAUGHT UP]
           </p>
-          <p className="text-[#64748b] text-sm mt-1 font-mono">
+          <p className="text-[#71717A] text-sm mt-1 font-mono">
             No cards due for {topic}. Check back tomorrow.
           </p>
         </div>
@@ -114,9 +114,9 @@ export default function FlashcardSession() {
         <button
           onClick={() => navigate('/quiz')}
           className="flex items-center gap-2 text-sm mb-6 transition-colors font-mono"
-          style={{ color: '#64748b' }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = '#e2e8f0')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = '#64748b')}
+          style={{ color: '#71717A' }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = '#F4F4F5')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = '#71717A')}
         >
           <ArrowLeft size={15} />
           &lt; Back to topics
@@ -125,28 +125,27 @@ export default function FlashcardSession() {
         <div
           className="rounded-xl p-8 text-center"
           style={{
-            background: '#0d1117',
-            border: '1px solid rgba(0,255,65,0.3)',
-            boxShadow: '0 0 20px rgba(0,255,65,0.07)',
+            background: '#111113',
+            border: '1px solid rgba(34,197,94,0.3)',
+            boxShadow: '0 0 20px rgba(34,197,94,0.07)',
           }}
         >
           <div
             className="w-16 h-16 rounded flex items-center justify-center mx-auto mb-4"
             style={{
-              background: 'rgba(0,255,65,0.08)',
-              border: '1px solid rgba(0,255,65,0.3)',
-              boxShadow: '0 0 20px rgba(0,255,65,0.15)',
+              background: 'rgba(34,197,94,0.08)',
+              border: '1px solid rgba(34,197,94,0.3)',
             }}
           >
-            <Trophy size={32} style={{ color: '#00ff41' }} />
+            <Trophy size={32} style={{ color: '#22C55E' }} />
           </div>
           <h2
             className="text-xl font-mono mb-1"
-            style={{ color: '#00ff41', textShadow: '0 0 10px rgba(0,255,65,0.5)' }}
+            style={{ color: '#22C55E' }}
           >
             [SESSION_COMPLETE]
           </h2>
-          <p className="text-[#64748b] text-sm mb-6 font-mono">
+          <p className="text-[#71717A] text-sm mb-6 font-mono">
             {topic} • {answered.length} cards reviewed
           </p>
 
@@ -154,47 +153,47 @@ export default function FlashcardSession() {
             <div
               className="rounded-xl p-4"
               style={{
-                background: 'rgba(0,255,65,0.05)',
-                border: '1px solid rgba(0,255,65,0.2)',
+                background: 'rgba(34,197,94,0.05)',
+                border: '1px solid rgba(34,197,94,0.2)',
               }}
             >
               <p
                 className="text-2xl font-mono font-bold"
-                style={{ color: '#00ff41', textShadow: '0 0 8px rgba(0,255,65,0.5)' }}
+                style={{ color: '#22C55E' }}
               >
                 {correct}
               </p>
-              <p className="text-xs text-[#64748b] mt-1 font-mono">Correct</p>
+              <p className="text-xs text-[#71717A] mt-1 font-mono">Correct</p>
             </div>
             <div
               className="rounded-xl p-4"
               style={{
-                background: 'rgba(255,255,0,0.05)',
-                border: '1px solid rgba(255,255,0,0.2)',
+                background: 'rgba(234,179,8,0.05)',
+                border: '1px solid rgba(234,179,8,0.2)',
               }}
             >
               <p
                 className="text-2xl font-mono font-bold"
-                style={{ color: '#ffff00', textShadow: '0 0 8px rgba(255,255,0,0.5)' }}
+                style={{ color: '#EAB308' }}
               >
                 {almost}
               </p>
-              <p className="text-xs text-[#64748b] mt-1 font-mono">Almost</p>
+              <p className="text-xs text-[#71717A] mt-1 font-mono">Almost</p>
             </div>
             <div
               className="rounded-xl p-4"
               style={{
-                background: 'rgba(255,0,64,0.05)',
-                border: '1px solid rgba(255,0,64,0.2)',
+                background: 'rgba(239,68,68,0.05)',
+                border: '1px solid rgba(239,68,68,0.2)',
               }}
             >
               <p
                 className="text-2xl font-mono font-bold"
-                style={{ color: '#ff0040', textShadow: '0 0 8px rgba(255,0,64,0.5)' }}
+                style={{ color: '#EF4444' }}
               >
                 {missed}
               </p>
-              <p className="text-xs text-[#64748b] mt-1 font-mono">Missed</p>
+              <p className="text-xs text-[#71717A] mt-1 font-mono">Missed</p>
             </div>
           </div>
 
@@ -224,16 +223,16 @@ export default function FlashcardSession() {
         <button
           onClick={() => navigate('/quiz')}
           className="flex items-center gap-2 text-sm transition-colors font-mono"
-          style={{ color: '#64748b' }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = '#e2e8f0')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = '#64748b')}
+          style={{ color: '#71717A' }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = '#F4F4F5')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = '#71717A')}
         >
           <ArrowLeft size={15} />
           &lt; Back
         </button>
         <h2
           className="text-sm font-mono"
-          style={{ color: '#00ffff' }}
+          style={{ color: '#1C69D4' }}
         >
           {topic} // FLASHCARDS
         </h2>
