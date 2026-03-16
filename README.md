@@ -20,7 +20,7 @@ Personal study platform for CCIE Enterprise Infrastructure exam preparation.
 | Frontend | React + Vite + TypeScript + Tailwind | Cloudflare Pages |
 | Backend | FastAPI + Python | Railway |
 | Database | PostgreSQL + asyncpg | Railway |
-| AI | Anthropic Claude (streaming SSE) | — |
+| AI | Anthropic Claude Haiku (streaming SSE) | — |
 | Lab Infra | Cisco CML on Proxmox | 192.168.137.10 |
 | CML Tunnel | Cloudflare Tunnel | cml.nathanfagan.net → 192.168.137.10 |
 
@@ -51,7 +51,9 @@ Personal study platform for CCIE Enterprise Infrastructure exam preparation.
 - 72 cards across 14 CCIE EI topics
 - SM-2 spaced repetition — cards scheduled based on performance
 - Quality ratings: Correct (5) / Almost (3) / Missed (1)
-- Skip button to advance without rating
+- Auto-advances to next card immediately on rating
+- Previous button to go back to last card
+- Score report at end of session (correct / almost / missed breakdown)
 
 ### Study Progress Dashboard
 - Current module based on Cohort 27 schedule (Feb 2026 – Jan 2027)
@@ -59,8 +61,9 @@ Personal study platform for CCIE Enterprise Infrastructure exam preparation.
 - View recent session history
 
 ### CCIE Mentor Chat
-- Claude-powered AI mentor with CCIE EI system prompt
+- Claude Haiku AI mentor with CCIE EI system prompt
 - Streaming responses via Server-Sent Events
+- Chat history capped at last 20 messages (cost control)
 - Detects lab creation intent — triggers CML lab directly from chat
 - Persistent chat history per session
 - Header shows current study module from Cohort 27 schedule
@@ -79,6 +82,18 @@ Personal study platform for CCIE Enterprise Infrastructure exam preparation.
 
 **EIGRP fault types:** wrong AS number, passive interface, K-value mismatch, wrong wildcard, missing network statement, distribute-list blocking routes, MD5 auth mismatch
 
+### Blog
+- Public read — no login required
+- Write / delete gated to admin email (`VITE_ADMIN_EMAIL`)
+- Posts have title, content, excerpt, tags, author
+- Stored in PostgreSQL, served via `/blog` API routes
+
+### Auth
+- Email login gate — all routes except `/dashboard` and `/blog` require login
+- Any email can log in (stored in localStorage)
+- Admin-only actions (blog write/delete) require email to match `VITE_ADMIN_EMAIL`
+- Login events logged to Railway logs via `POST /auth/login`
+
 ---
 
 ## Project Structure
@@ -88,8 +103,12 @@ ccie-study-app/
 ├── frontend/
 │   ├── src/
 │   │   ├── api/client.ts              # All API calls + SSE streaming
+│   │   ├── lib/auth.ts                # Auth helpers (login, logout, isAdmin)
 │   │   ├── components/
-│   │   │   ├── FlashcardViewer.tsx    # Card flip + rating buttons + skip
+│   │   │   ├── Navbar.tsx             # Top horizontal nav bar (responsive)
+│   │   │   ├── Layout.tsx             # Top nav + main content layout
+│   │   │   ├── ProtectedLayout.tsx    # Auth guard for protected routes
+│   │   │   ├── FlashcardViewer.tsx    # Card flip + rating buttons + prev/next
 │   │   │   ├── LabLauncher.tsx        # Lab creation form (topic/faults/seed)
 │   │   │   ├── LabStatusCard.tsx      # Lab card with topology + fault checklist
 │   │   │   ├── LabTopology.tsx        # SVG topology diagram (R1–R5)
@@ -100,27 +119,32 @@ ccie-study-app/
 │   │   │   ├── Quiz.tsx               # Topic selector
 │   │   │   ├── FlashcardSession.tsx   # SM-2 card review session
 │   │   │   ├── Chat.tsx               # AI mentor with streaming + module context
-│   │   │   └── Labs.tsx               # CML lab launcher
+│   │   │   ├── Labs.tsx               # CML lab launcher
+│   │   │   ├── Blog.tsx               # Blog post list + create form
+│   │   │   ├── BlogPost.tsx           # Single blog post view + delete
+│   │   │   └── Login.tsx              # Email login page
 │   │   ├── types/                     # TypeScript interfaces
-│   │   └── index.css                  # Cyberpunk global styles
-│   ├── tailwind.config.js             # cyber.* colour tokens
+│   │   └── index.css                  # BMW theme global styles
+│   ├── tailwind.config.js             # bmw.* colour tokens, IBM Plex Mono
 │   └── vite.config.ts
 │
 └── backend/
     ├── app/
     │   ├── main.py                    # FastAPI app, CORS, lifespan startup
     │   ├── db.py                      # Async SQLAlchemy + asyncpg
-    │   ├── models/models.py           # ORM models
+    │   ├── models/models.py           # ORM models (incl. BlogPost)
     │   ├── api/routes/
     │   │   ├── progress.py            # Study session endpoints
     │   │   ├── quiz.py                # Deck, answer, stats endpoints
-    │   │   ├── chat.py                # SSE streaming chat
-    │   │   └── labs.py                # CML lab CRUD
+    │   │   ├── chat.py                # SSE streaming chat (history capped at 20)
+    │   │   ├── labs.py                # CML lab CRUD
+    │   │   ├── blog.py                # Blog post CRUD
+    │   │   └── auth.py                # Login event logging
     │   └── services/
-    │       ├── claude.py              # Anthropic streaming + lab intent
+    │       ├── claude.py              # Anthropic Haiku streaming + lab intent
     │       ├── srs.py                 # SM-2 algorithm
     │       ├── schedule.py            # Cohort 27 programme schedule
-    │       └── cml_service.py         # virl2-client CML integration + routing
+    │       └── cml_service.py         # virl2-client CML integration (NullPool fix)
     ├── labs/
     │   ├── ospf.py                    # OSPF lab generator (7 fault types)
     │   ├── bgp.py                     # BGP lab generator (7 fault types)
@@ -145,15 +169,21 @@ ccie-study-app/
 Config: `C:\Users\natha\.cloudflared\config.yml`
 Tunnel ID: `995081b0-073f-4b81-8b21-163f4b54d5b1`
 
-Run manually:
+The tunnel runs as a **Windows service** (auto-starts on boot):
 ```powershell
-& "C:\Users\natha\AppData\Local\Programs\cloudflared.exe" tunnel run
-```
+# Check status
+sc.exe query "Cloudflared"
 
-Install as Windows service (run PowerShell as Administrator):
-```powershell
+# Restart if needed
+sc.exe stop "Cloudflared" && sc.exe start "Cloudflared"
+
+# Install service (run once as Administrator)
 & "C:\Users\natha\AppData\Local\Programs\cloudflared.exe" service install
 ```
+
+> If labs are stuck on "booting", the tunnel has likely dropped. Verify with:
+> `curl -o /dev/null -w "%{http_code}" https://cml.nathanfagan.net`
+> A `530` means the tunnel is down.
 
 ### DNS Records (nathanfagan.net)
 | Name | Type | Target | Proxied |
@@ -187,9 +217,10 @@ CML_PASS=275GlasSharp!%
 CORS_ORIGINS=https://nathanfagan.net,https://www.nathanfagan.net,http://localhost:5173
 ```
 
-### Frontend — Cloudflare Pages environment variable
+### Frontend — Cloudflare Pages environment variables
 ```
 VITE_API_URL=https://api.nathanfagan.net
+VITE_ADMIN_EMAIL=your@email.com        # Only this email can write/delete blog posts
 ```
 
 ---
@@ -232,6 +263,9 @@ Repository: `github.com/nathaneycd4/ccie-study-app`
 ### Frontend (Cloudflare Pages)
 Auto-deploys on every push to `main`. No action needed.
 
+> If env vars are updated in Cloudflare Pages, trigger a redeploy manually from the dashboard or push an empty commit:
+> `git commit --allow-empty -m "chore: trigger redeploy" && git push`
+
 ### Backend (Railway)
 Auto-deploys via GitHub Actions (`.github/workflows/deploy-backend.yml`).
 Triggers on any push that touches `backend/**`, calls Railway API with `latestCommit: true`.
@@ -250,8 +284,8 @@ curl -X POST https://backboard.railway.app/graphql/v2 \
 
 ## Design
 
-Cyberpunk aesthetic — Share Tech Mono font, neon cyan/magenta/green on near-black.
+BMW aesthetic — IBM Plex Mono font, BMW blue (#1C69D4) on carbon black (#09090b).
 
-Tailwind colour tokens: `cyber.bg` `cyber.surface` `cyber.cyan` `cyber.magenta` `cyber.green`
+Tailwind colour tokens: `bmw.bg` `bmw.surface` `bmw.surface2` `bmw.blue` `bmw.green` `bmw.gold` `bmw.red`
 
-Global utilities in `frontend/src/index.css`: `card-cyber`, `btn-cyber`, `neon-text`, scanlines overlay.
+Global utilities in `frontend/src/index.css`: `card-cyber`, `btn-cyber`, `btn-cyber-green`, `btn-cyber-red`, `btn-cyber-yellow`, `prose-bmw`.
