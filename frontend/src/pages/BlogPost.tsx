@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '../api/client'
-import { isAuthenticated } from '../lib/auth'
+import { isAdmin } from '../lib/auth'
 import { ArrowLeft, Loader2, Trash2 } from 'lucide-react'
 
 function formatDate(iso: string) {
@@ -17,7 +17,7 @@ export default function BlogPost() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const authenticated = isAuthenticated()
+  const authenticated = isAdmin()
 
   const { data: post, isLoading, error } = useQuery({
     queryKey: ['blog-post', id],

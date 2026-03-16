@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '../api/client'
-import { isAuthenticated, getStoredEmail } from '../lib/auth'
+import { isAdmin, getStoredEmail } from '../lib/auth'
 import { BookOpen, Loader2, Plus, X } from 'lucide-react'
 import type { BlogPostCreate } from '../types'
 
@@ -17,7 +17,7 @@ function formatDate(iso: string) {
 export default function Blog() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const authenticated = isAuthenticated()
+  const authenticated = isAdmin()
   const storedEmail = getStoredEmail()
 
   const [formOpen, setFormOpen] = useState(false)
