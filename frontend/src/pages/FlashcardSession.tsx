@@ -3,7 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '../api/client'
 import FlashcardViewer from '../components/FlashcardViewer'
-import { ArrowLeft, Trophy, RotateCcw, Loader2 } from 'lucide-react'
+import CommandRefDrawer from '../components/CommandRefDrawer'
+import { ArrowLeft, RotateCcw, Loader2, BookOpen } from 'lucide-react'
 
 export default function FlashcardSession() {
   const { topic } = useParams<{ topic: string }>()
@@ -12,6 +13,7 @@ export default function FlashcardSession() {
   const [cardIndex, setCardIndex] = useState(0)
   const [results, setResults] = useState<Record<number, number>>({})
   const [sessionDone, setSessionDone] = useState(false)
+  const [refOpen, setRefOpen] = useState(false)
 
   const { data: cards, isLoading } = useQuery({
     queryKey: ['deck', topic],
@@ -130,15 +132,11 @@ export default function FlashcardSession() {
             boxShadow: '0 0 20px rgba(34,197,94,0.07)',
           }}
         >
-          <div
-            className="w-16 h-16 rounded flex items-center justify-center mx-auto mb-4"
-            style={{
-              background: 'rgba(34,197,94,0.08)',
-              border: '1px solid rgba(34,197,94,0.3)',
-            }}
-          >
-            <Trophy size={32} style={{ color: '#22C55E' }} />
-          </div>
+          <img
+            src="/favicon.svg"
+            alt="seal"
+            className="w-20 h-20 mx-auto mb-4 seal-tada"
+          />
           <h2
             className="text-xl font-mono mb-1"
             style={{ color: '#22C55E' }}
@@ -218,6 +216,10 @@ export default function FlashcardSession() {
   }
 
   return (
+    <>
+    {refOpen && topic && (
+      <CommandRefDrawer topic={topic} onClose={() => setRefOpen(false)} />
+    )}
     <div className="p-6 max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <button
@@ -236,7 +238,17 @@ export default function FlashcardSession() {
         >
           {topic} // FLASHCARDS
         </h2>
-        <div />
+        <button
+          onClick={() => setRefOpen(true)}
+          className="flex items-center gap-1.5 text-xs font-mono transition-colors"
+          style={{ color: '#71717A' }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = '#1C69D4')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = '#71717A')}
+          title="Command reference"
+        >
+          <BookOpen size={14} />
+          ref
+        </button>
       </div>
 
       <FlashcardViewer
@@ -250,5 +262,6 @@ export default function FlashcardSession() {
         hasPrevious={cardIndex > 0}
       />
     </div>
+    </>
   )
 }

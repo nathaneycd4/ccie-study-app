@@ -171,12 +171,17 @@ export default function LabStatusCard({ lab, onDelete }: Props) {
               {answerRevealed && answerKey && (
                 <div className="mt-2 space-y-1.5">
                   {/* Progress */}
-                  <div className="flex items-center justify-between text-xs font-mono mb-2">
-                    <span style={{ color: checked.filter(Boolean).length === answerKey.length ? '#22C55E' : '#71717A' }}>
-                      {checked.filter(Boolean).length === answerKey.length
-                        ? '✓ All faults fixed!'
-                        : `${checked.filter(Boolean).length} / ${answerKey.length} fixed`}
-                    </span>
+                  <div className="flex items-center gap-3 text-xs font-mono mb-2">
+                    {checked.filter(Boolean).length === answerKey.length ? (
+                      <>
+                        <img src="/favicon.svg" alt="seal" className="w-8 h-8 seal-tada" />
+                        <span style={{ color: '#22C55E' }}>✓ All faults fixed!</span>
+                      </>
+                    ) : (
+                      <span style={{ color: '#71717A' }}>
+                        {checked.filter(Boolean).length} / {answerKey.length} fixed
+                      </span>
+                    )}
                   </div>
                   {answerKey.map((fault, i) => (
                     <div
