@@ -45,9 +45,10 @@ export default function Dashboard() {
       {/* Header */}
       <div>
         <h1
-          className="text-2xl font-mono"
+          className="text-2xl font-mono flex items-center gap-2"
           style={{ color: '#1C69D4' }}
         >
+          <img src="/favicon.svg" alt="seal" className="w-7 h-7" />
           // DASHBOARD
         </h1>
         <p className="text-[#71717A] text-sm mt-0.5 font-mono">

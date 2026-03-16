@@ -43,13 +43,16 @@ export default function Navbar() {
     >
       <div className="flex items-center h-full px-4 sm:px-6">
         {/* Left: branding */}
-        <div className="flex flex-col justify-center shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
+          <img src="/favicon.svg" alt="seal" className="w-7 h-7" />
+          <div className="flex flex-col justify-center">
           <span className="font-mono text-sm leading-none" style={{ color: '#1C69D4' }}>
             Nathan Fagan
           </span>
           <span className="font-mono text-xs mt-0.5 leading-none" style={{ color: '#71717A' }}>
             &gt; CCIE EI CANDIDATE
           </span>
+          </div>
         </div>
 
         {/* Center: nav links — hidden on mobile */}

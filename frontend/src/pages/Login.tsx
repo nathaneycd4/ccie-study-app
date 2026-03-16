@@ -35,6 +35,7 @@ export default function Login() {
       <div className="w-full max-w-sm">
         {/* Header */}
         <div className="mb-8 text-center">
+          <img src="/favicon.svg" alt="seal" className="w-16 h-16 mx-auto mb-3" />
           <p
             className="font-mono text-2xl"
             style={{ color: '#1C69D4' }}
